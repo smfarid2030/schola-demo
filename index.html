@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Schola কন্টেন্ট স্টুডিও — মোবাইল নমুনা</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#515ECE;--blue2:#2E3591;--navy:#1E2366;--mag:#D6336C;--mag2:#C2368F;
+  --bg:#FBF8F3;--ink:#1A1B2E;--muted:#5B5F7E;--line:#E6E3F1;--tint:#EEF0FC;--sun:#F2C14E;--coral:#F08A6C;
+  --grad:linear-gradient(135deg,#515ECE 0%,#7A4FC4 55%,#D6336C 100%);
+  --safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#E9E6F3}
+body{font-family:'Hind Siliguri',system-ui,sans-serif;color:var(--ink);font-size:15px;line-height:1.5}
+h1,h2,h3,.disp{font-family:'Baloo Da 2','Hind Siliguri',sans-serif;line-height:1.25;margin:0}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+input,select,textarea{font:inherit}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;box-shadow:0 0 40px rgba(30,35,102,.12);display:flex;flex-direction:column}
+.flowbar{display:flex;align-items:stretch;gap:6px;padding:6px 10px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:25}
+.flowbar button{min-width:44px;min-height:44px;border-radius:12px;background:var(--tint);color:var(--blue2);font-size:24px;font-weight:700;line-height:1}
+.flowbar button[disabled]{opacity:.35}
+.flowbar .mid{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;font-size:14px;padding:2px 12px;text-align:left;background:#F6F4FB}
+.toast{position:fixed;left:50%;bottom:calc(84px + var(--safe-b));transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:10px 16px;border-radius:14px;font-size:14px;z-index:80;opacity:0;transition:.25s;max-width:92%;text-align:center;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast{position:fixed;left:50%;bottom:calc(84px + var(--safe-b));transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:10px 16px;border-radius:14px;font-size:14px;z-index:80;opacity:0;transition:.25s;max-width:92%;text-align:center;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* top bar */
+.top{position:relative;z-index:20;background:var(--grad);color:#fff;padding:calc(10px + var(--safe-t)) 14px 10px;display:flex;align-items:center;gap:10px}
+.top img{height:28px;display:block}
+.top .grow{flex:1;min-width:0}
+.top .ctx{font-size:12px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 10px;font-size:13px;font-weight:600;color:#fff;white-space:nowrap}
+.rolebar{display:flex;gap:6px;padding:8px 14px;background:var(--navy);overflow-x:auto;scrollbar-width:none}
+.rolebar::-webkit-scrollbar{display:none}
+.rolebar button{flex:none;color:#C9CCF2;font-size:13px;padding:4px 12px;border-radius:999px;border:1px solid #3A408A}
+.rolebar button[aria-pressed="true"]{background:#fff;color:var(--navy);font-weight:700;border-color:#fff}
+.tape{height:4px;background:repeating-linear-gradient(90deg,var(--mag) 0 18px,var(--sun) 18px 26px)}
+main{flex:1;padding:16px 14px calc(96px + var(--safe-b))}
+main.wiz{padding-bottom:calc(150px + var(--safe-b))}
+/* bottom nav */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:30;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:6px 4px calc(6px + var(--safe-b))}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;color:var(--muted);text-decoration:none;padding:4px 0;border-radius:12px;min-height:48px;justify-content:center}
+.nav a svg{width:22px;height:22px}
+.nav a[aria-current="page"]{color:var(--blue);font-weight:700}
+.nav a.plus span.b{width:46px;height:46px;border-radius:16px;background:var(--grad);display:grid;place-items:center;color:#fff;box-shadow:0 6px 14px rgba(81,94,206,.35);margin-top:-18px}
+/* cards & bits */
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.card.dark{background:var(--grad);color:#fff;border:0}
+.card.soft{background:var(--tint);border-color:#DADDF7}
+.card.warn{background:#FFF7E0;border-color:#F5DE9C}
+.row{display:flex;align-items:center;gap:10px}
+.between{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.xs{font-size:12px}
+.big{font-family:'Baloo Da 2';font-size:34px;font-weight:800;line-height:1}
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin:20px 2px 10px}
+.sec h2{font-size:18px}
+.sec a{font-size:13px;color:var(--blue);font-weight:600;text-decoration:none}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:14px;padding:0 16px;font-weight:700;width:100%;text-decoration:none}
+.btn.pri{background:var(--blue);color:#fff;box-shadow:0 4px 0 var(--blue2)}
+.btn.mag{background:var(--mag);color:#fff;box-shadow:0 4px 0 #9E1F4E}
+.btn.ghost{background:#fff;color:var(--blue2);border:1.5px solid #C9CDF3}
+.btn.white{background:#fff;color:var(--blue2)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn[disabled]{opacity:.45}
+.btn.sm{min-height:38px;width:auto;font-size:13.5px;border-radius:11px;padding:0 12px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;background:var(--tint);color:var(--blue2);white-space:nowrap}
+.tag.run{background:#FCE4EE;color:#9E1F4E}.tag.wait{background:#FFF1C9;color:#6B4E00}.tag.ok{background:#E3F4E8;color:#1E6B3A}.tag.off{background:#EEEEF2;color:#5B5F7E}.tag.fail{background:#FDE3DC;color:#9A3412}
+.list .item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.list .item:last-child{border-bottom:0}
+.list .item .grow{flex:1;min-width:0}
+.ttl{font-weight:700;font-size:15px}
+.ell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:8px;border-radius:99px;background:#E6E3F1;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--grad);border-radius:99px}
+.ftype{width:42px;height:48px;border-radius:9px;display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--ink);flex:none;border:1.5px solid var(--ink)}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:0 -14px 12px;padding:0 14px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:13.5px;min-height:38px}
+.tabs button[aria-pressed="true"]{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:700}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px}
+.kv dt{color:var(--muted)}.kv dd{margin:0;font-weight:600;text-align:right}
+.mascot{width:76px;height:76px;flex:none}
+.mascot svg{width:100%;height:100%}
+.say{position:relative;background:#fff;border:1.5px solid var(--ink);border-radius:16px;padding:9px 12px;font-size:14px;font-weight:500}
+.say:before{content:"";position:absolute;left:-9px;top:20px;border:8px solid transparent;border-right-color:var(--ink);border-left:0}
+.say:after{content:"";position:absolute;left:-6px;top:21px;border:7px solid transparent;border-right-color:#fff;border-left:0}
+.hex{position:absolute;opacity:.15;pointer-events:none}
+.note{font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed #CFCBE3;border-radius:12px;padding:10px 12px;margin-top:10px}
+.field{display:block;margin-bottom:12px}
+.field span{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;min-height:48px;border:1.5px solid #D5D2E6;border-radius:12px;padding:10px 12px;background:#fff;font-size:16px}
+.toggle{width:46px;height:28px;border-radius:99px;background:#E3E5F2;position:relative;flex:none;transition:.2s}
+.toggle:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.2s}
+.toggle[aria-checked="true"]{background:var(--blue)}
+.toggle[aria-checked="true"]:after{left:21px}
+.pick{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:13px;margin-bottom:10px;min-height:56px}
+.pick[aria-pressed="true"]{border-color:var(--blue);background:#E4E6FA;box-shadow:4px 4px 0 var(--blue)}
+.pick .box{width:24px;height:24px;border-radius:8px;border:2px solid #B9BEEA;flex:none;display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px}
+.pick[aria-pressed="true"] .box{background:var(--blue);border-color:var(--blue)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pill{min-height:44px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-weight:700}
+.pill[aria-pressed="true"]{background:var(--blue);color:#fff;border-color:var(--blue)}
+/* wizard */
+.wtop{background:#fff;border-bottom:1px solid var(--line);padding:10px 14px 12px;position:relative;z-index:1}
+.dots{display:flex;gap:4px;margin-top:8px}
+.dots i{flex:1;height:6px;border-radius:99px;background:#E6E3F1}
+.dots i.d{background:var(--blue)}.dots i.c{background:var(--sun)}.dots i.s{background:repeating-linear-gradient(90deg,#E6E3F1 0 3px,#fff 3px 6px)}
+.wact{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:480px;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(12px + var(--safe-b));z-index:30;box-shadow:0 -6px 18px rgba(30,35,102,.08)}
+.wact .row{gap:10px}
+.wact .hint{font-size:12px;color:var(--muted);text-align:center;margin-bottom:6px;min-height:16px}
+.stage{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;margin-bottom:6px;background:#fff;border:1px solid var(--line)}
+.stage .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);flex:none}
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(20,22,50,.45);z-index:50;display:none}
+.sheet{position:fixed;left:50%;transform:translate(-50%,100%);bottom:0;width:100%;max-width:480px;background:#fff;border-radius:22px 22px 0 0;z-index:60;padding:10px 16px calc(20px + var(--safe-b));transition:transform .25s;max-height:80vh;overflow:auto}
+.sheet.open{transform:translate(-50%,0)}
+.sheet .grab{width:44px;height:5px;border-radius:9px;background:#D5D2E6;margin:0 auto 12px}
+.sheet a.it{display:flex;align-items:center;gap:12px;padding:13px 4px;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;min-height:52px}
+.sheet a.it small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.ico{width:38px;height:38px;border-radius:12px;background:var(--tint);display:grid;place-items:center;color:var(--blue2);flex:none}
+.ico svg{width:20px;height:20px}
+.page-h{margin:2px 2px 14px}
+.page-h h1{font-size:23px}
+.page-h p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.demo{display:inline-block;font-size:11px;font-weight:700;color:#9E1F4E;background:#FCE4EE;border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.pin{width:24px;height:24px;border-radius:50%;background:var(--mag);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;flex:none;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.paper{background:#fff;border:1.5px solid var(--ink);border-radius:10px;padding:12px;position:relative;font-size:13px}
+.seg{display:flex;background:#EFEDF7;border-radius:12px;padding:3px;margin-bottom:12px}
+.seg button{flex:1;min-height:38px;border-radius:10px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--blue2);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.hero{position:relative;overflow:hidden}
+.login-wrap{min-height:calc(100vh - 57px);display:flex;flex-direction:column;background:var(--grad);color:#fff}
+.login-wrap .inner{padding:calc(28px + var(--safe-t)) 20px 20px;flex:1;display:flex;flex-direction:column}
+a.link{color:var(--blue);font-weight:600;text-decoration:none}
+@media (min-width:520px){body{padding:16px 0}.app{border-radius:28px;overflow:hidden;min-height:calc(100vh - 32px)}}
+</style>
+<!-- wide:START head -->
+<meta name="robots" content="noindex,nofollow">
+<style>
+/* ===== wide: prototype banner (all sizes) ===== */
+:root{--pb:28px}
+.proto-banner{height:var(--pb);line-height:var(--pb);background:var(--ink);color:#fff;font-size:12.5px;font-weight:600;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 10px}
+.app{min-height:calc(100vh - var(--pb))}
+.login-wrap{min-height:calc(100vh - 57px - var(--pb))}
+@media (min-width:520px){.proto-banner{margin:-16px 0 16px}.app{min-height:calc(100vh - 32px - var(--pb))}}
+
+/* ===== wide: markup added for wide screens stays invisible on phones ===== */
+.side,.wside,.dt-h{display:none}
+.dtw,.rd-doc,.rd-notes{display:contents}
+
+/* ===== wide: 768px and up (tablet: icon sidebar, one readable column) ===== */
+@media (min-width:768px){
+  body{padding:0}
+  .proto-banner{margin:0}
+  .app{max-width:1280px;border-radius:0;overflow:visible;min-height:calc(100vh - var(--pb));display:grid;grid-template-columns:92px minmax(0,1fr);grid-template-rows:auto auto auto auto auto 1fr auto}
+  .top{grid-column:1/-1;grid-row:1}
+  .rolebar{grid-column:1/-1;grid-row:2}
+  .tape{grid-column:1/-1;grid-row:3}
+  .flowbar{grid-column:1/-1;grid-row:4}
+  .nav{display:none}
+  main{grid-column:2;grid-row:5/8;min-width:0;padding:22px max(22px,calc((100% - 720px)/2)) 48px}
+  /* login + forgot */
+  .login-wrap{grid-column:1/-1;grid-row:5/8;min-height:0}
+  .login-wrap .inner{width:100%;max-width:520px;margin:0 auto;justify-content:center}
+  .login-wrap form{margin-top:18px!important}
+  /* sidebar (icons with small labels) */
+  .side{display:block;grid-column:1;grid-row:5/8;background:#fff;border-right:1px solid var(--line)}
+  .side nav{position:sticky;top:57px;max-height:calc(100vh - 57px);overflow-y:auto;padding:10px 6px 20px;scrollbar-width:thin}
+  .side a{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;font-size:11px;line-height:1.25;color:var(--muted);text-decoration:none;padding:8px 2px;border-radius:12px;min-height:52px;justify-content:center;margin-bottom:2px}
+  .side a .si{display:grid;place-items:center;flex:none}
+  .side a svg{width:22px;height:22px;display:block}
+  .side a small{display:none}
+  .side a[aria-current="page"]{color:var(--blue);font-weight:700;background:var(--tint)}
+  .side a.plus .si{width:42px;height:42px;border-radius:15px;background:var(--grad);color:#fff;box-shadow:0 6px 14px rgba(81,94,206,.35)}
+  .side-h{font-size:11px;font-weight:700;color:var(--mag);text-align:center;border-top:1px solid var(--line);margin:8px 4px 6px;padding-top:8px}
+  /* wizard: no menu (as in the original), content in a readable centred column */
+  .wtop{grid-column:1/-1;grid-row:5;padding-left:max(14px,calc((100% - 652px)/2));padding-right:max(14px,calc((100% - 652px)/2))}
+  main.wiz{grid-column:1/-1;grid-row:6;padding:20px max(20px,calc((100% - 640px)/2)) 28px}
+  .wact{grid-column:1/-1;grid-row:7;position:sticky;bottom:0;left:auto;transform:none;width:auto;max-width:none;padding-left:max(14px,calc((100% - 652px)/2));padding-right:max(14px,calc((100% - 652px)/2))}
+}
+
+/* ===== wide: 1024px and up (full width, labelled sidebar, grids and tables) ===== */
+@media (min-width:1024px){
+  .app{grid-template-columns:248px minmax(0,1fr)}
+  .app[data-scr="wizard"]{grid-template-columns:312px minmax(0,1fr)}
+  /* sidebar with labels */
+  .side nav{padding:14px 12px 24px}
+  .side a{flex-direction:row;justify-content:flex-start;text-align:left;gap:12px;font-size:14.5px;padding:8px 12px;min-height:46px}
+  .side a small{display:block;font-size:12px;font-weight:400;color:var(--muted);line-height:1.3}
+  .side a.plus .si{width:36px;height:36px;border-radius:12px;margin-left:-7px;margin-right:-7px}
+  .side-h{text-align:left;margin:10px 12px 6px;font-size:12px}
+  /* wizard side panel: steps, current choices, credit estimate */
+  .wside{display:block;grid-column:1;grid-row:5/8;background:#fff;border-right:1px solid var(--line)}
+  .wside>div{position:sticky;top:57px;max-height:calc(100vh - 57px);overflow-y:auto;padding:16px 14px 24px;scrollbar-width:thin}
+  .wside .ws-h{font-weight:700;margin:14px 4px 6px}
+  .wsteps{list-style:none;margin:0 0 14px;padding:0}
+  .wsteps li{display:flex;align-items:center;gap:10px;font-size:14px;padding:5px 8px;border-radius:10px;color:var(--muted)}
+  .wsteps .n{width:24px;height:24px;border-radius:50%;border:1.5px solid #C9CDF3;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none;background:#fff}
+  .wsteps li.d{color:var(--ink)}
+  .wsteps li.d .n{background:var(--blue);border-color:var(--blue);color:#fff}
+  .wsteps li.c{background:#FFF7E0;color:var(--ink);font-weight:700}
+  .wsteps li.c .n{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+  .wsteps li.s{opacity:.45}
+  .wsteps li.s .n{border-style:dashed}
+  .wside .card{margin-bottom:10px}
+  .wside .kv{margin-top:8px;font-size:13.5px}
+  .wtop,main.wiz,.wact{grid-column:2}
+  /* page grid */
+  main{padding:24px 28px 48px}
+  main[data-scr]{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px 16px;align-content:start;align-items:start}
+  main[data-scr]>*{grid-column:1/-1;margin-top:0;margin-bottom:0;min-width:0}
+  main[data-scr]>.tabs{margin:0;padding:0}
+  main[data-scr]>.sec{margin:6px 2px 0}
+  main[data-scr]>.page-h{margin:0 2px 2px}
+  main[data-scr]>.btn,main[data-scr]>button.row{justify-self:start;width:auto}
+  main[data-scr]>.btn{min-width:260px}
+  /* card lists as tile grids */
+  main[data-scr="home"]>.card.list,main[data-scr="library"]>.card.list,main[data-scr="adm-personas"]>.card.list,main[data-scr="adm-tasks"]>.card.list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;background:none;border:0;padding:0}
+  main[data-scr="home"]>.card.list>.item,main[data-scr="library"]>.card.list>.item,main[data-scr="adm-personas"]>.card.list>.item,main[data-scr="adm-tasks"]>.card.list>.item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+  main[data-scr="adm-personas"]>.card.list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  /* tables: my jobs, review list, members, organizations, transactions, price list */
+  .dtw{display:block;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .card.list.dt{padding:0;overflow:hidden}
+  .dt-h{display:grid;align-items:center;column-gap:16px;padding:10px 18px;background:#F6F4FB;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--muted)}
+  .dt-r{display:grid!important;align-items:center;column-gap:16px;row-gap:0;padding:12px 18px!important;margin:0!important;border:0;border-bottom:1px solid var(--line);border-radius:0;background:#fff}
+  .dt-r:last-child{border-bottom:0}
+  .dt-work{grid-template-columns:minmax(0,2.2fr) minmax(0,1.7fr) minmax(0,1.5fr) minmax(0,1.3fr) 128px}
+  .dt-r.dt-work>.between,.dt-r.dt-work>.between>div{display:contents}
+  .dt-r.dt-work .ttl{grid-column:1;grid-row:1}
+  .dt-r.dt-work .between>div>.xs{grid-column:2;grid-row:1}
+  .dt-r.dt-work .tag{grid-column:3;grid-row:1;justify-self:start}
+  .dt-r.dt-work>.bar{grid-column:3;grid-row:2;margin:6px 0 0!important}
+  .dt-r.dt-work .between>.small{grid-column:4;grid-row:1}
+  .dt-r.dt-work .btn{grid-column:5;grid-row:1;justify-self:end}
+  .dt-ledger{grid-template-columns:minmax(0,2.4fr) minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr)}
+  .dt-r.dt-ledger>div{display:contents}
+  .dt-r.dt-ledger>div:last-child>div,.dt-h.dt-ledger>span:nth-child(n+3){text-align:right}
+  .dt-member{grid-template-columns:38px minmax(0,1.3fr) minmax(0,2fr) minmax(0,1fr) minmax(0,1fr)}
+  .dt-r.dt-member>div{display:contents}
+  .dt-r.dt-member .tag{justify-self:start}
+  .dt-org{grid-template-columns:minmax(0,2fr) minmax(0,2fr) minmax(0,1.2fr) minmax(0,1.2fr) 24px}
+  .dt-r.dt-org>.between,.dt-r.dt-org>.between>div{display:contents}
+  .dt-r.dt-org .ttl{grid-column:1;grid-row:1}
+  .dt-r.dt-org .between>div>.xs{grid-column:2;grid-row:1}
+  .dt-r.dt-org .tag{grid-column:3;grid-row:1;justify-self:start}
+  .dt-r.dt-org .between>b{grid-column:4;grid-row:1}
+  .dt-r.dt-org .between>svg{grid-column:5;grid-row:1}
+  .dt-price{grid-template-columns:minmax(0,2fr) minmax(0,2fr) 170px}
+  .dt-r.dt-price>.grow{display:contents}
+  .dt-r.dt-price>.row{justify-self:end}
+  .dt-h.dt-price>span:last-child{text-align:right}
+  /* per-page layouts */
+  main[data-scr="home"]>.card.dark{grid-column:span 4;order:1;align-self:stretch}
+  main[data-scr="home"]>section.card:not(.dark):not(.warn){grid-column:span 2;order:2;align-self:stretch}
+  main[data-scr="home"]>.card.warn{grid-column:span 3;order:3;align-self:stretch}
+  main[data-scr="home"]>.sec{order:4}
+  main[data-scr="home"]>.card.list{order:5}
+  main[data-scr="credits"]>.card.dark{grid-column:span 4;align-self:stretch}
+  main[data-scr="credits"]>.card.soft{grid-column:span 2;align-self:stretch}
+  main[data-scr="account"]>.pick{grid-column:span 3;align-self:stretch}
+  main[data-scr="review-detail"]>.rd-doc{display:block;grid-column:1/4;position:sticky;top:73px}
+  main[data-scr="review-detail"]>.rd-notes{display:block;grid-column:4/7}
+  .rd-doc .paper{padding:26px 30px;font-size:15px;min-height:420px}
+  main[data-scr="org-usage"]>.grid2+.sec,main[data-scr="org-ent"]>.page-h+.sec{grid-column:1/4;grid-row:3}
+  main[data-scr="org-usage"]>.grid2+.sec+.list,main[data-scr="org-ent"]>.page-h+.sec+.list{grid-column:1/4;grid-row:4}
+  main[data-scr="org-usage"]>.list+.sec,main[data-scr="org-ent"]>.list+.sec{grid-column:4/7;grid-row:3}
+  main[data-scr="org-usage"]>.list+.sec+.list,main[data-scr="org-ent"]>.list+.sec+.list{grid-column:4/7;grid-row:4}
+  main[data-scr="org-ent"]>.page-h{grid-row:1/3}
+  main[data-scr="org-members"]>form{grid-column:1/3;grid-row:2/4}
+  main[data-scr="org-members"]>.sec{grid-column:3/7;grid-row:2}
+  main[data-scr="org-members"]>.card.list{grid-column:3/7;grid-row:3}
+  main[data-scr="org-brand"]>.paper{grid-column:1/4}
+  main[data-scr="org-brand"]>form{grid-column:4/7}
+  main[data-scr="adm-home"]>.sec{grid-column:1/5;grid-row:3}
+  main[data-scr="adm-home"]>.card.list{grid-column:1/5;grid-row:4}
+  main[data-scr="adm-home"]>.card.warn{grid-column:5/7;grid-row:3/5}
+  main[data-scr="adm-org"]>.page-h+.sec{grid-column:1/4;grid-row:3}
+  main[data-scr="adm-org"]>.page-h+.sec+.list{grid-column:1/4;grid-row:4}
+  main[data-scr="adm-org"]>form{grid-column:1/4;grid-row:5}
+  main[data-scr="adm-org"]>.list+.sec{grid-column:4/7;grid-row:3}
+  main[data-scr="adm-org"]>.list+.sec+.list{grid-column:4/7;grid-row:4/6}
+  main[data-scr="adm-org"]>.list+p.note{grid-column:4/7;grid-row:6}
+  main[data-scr="adm-org"]>form+.sec{grid-column:1/-1;grid-row:7}
+  main[data-scr="adm-org"]>form+.sec+.list{grid-column:1/-1;grid-row:8}
+  main[data-scr="adm-packages"]>.card.list{grid-column:1/4;grid-row:3/7}
+  main[data-scr="adm-packages"]>.grid2{grid-column:4/7;grid-row:3}
+  main[data-scr="adm-packages"]>p{grid-column:4/7;grid-row:4}
+  main[data-scr="adm-packages"]>.card.warn{grid-column:4/7;grid-row:5}
+  main[data-scr="adm-packages"]>.btn{grid-column:4/7;grid-row:6}
+  main[data-scr="adm-personas"]>section.card{grid-column:1/3;grid-row:2/4}
+  main[data-scr="adm-personas"]>.sec{grid-column:3/7;grid-row:2}
+  main[data-scr="adm-personas"]>.card.list{grid-column:3/7;grid-row:3}
+  main[data-scr="adm-tasks"]>.card:not(.list){grid-column:span 2;align-self:stretch}
+  main[data-scr="adm-catalog"]>.card{grid-column:1/5}
+  main[data-scr="adm-templates"]>.card.row{grid-column:span 3}
+}
+</style>
+<!-- wide:END -->
+</head>
+<body>
+<!-- wide:START banner -->
+<div class="proto-banner" role="note">প্রোটোটাইপ: নমুনা-ডেটা, আসল অ্যাপ নয়</div>
+<!-- wide:END -->
+<div class="app" id="app"></div>
+<div class="scrim" id="scrim"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="তালিকা"></div>
+<script>
+const KACHU={"hello": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"58\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 34 q-3 -9 -9 -12\"></path><path d=\"M100 32 q1 -10 -2 -15\"></path><path d=\"M109 34 q4 -9 10 -11\"></path><circle cx=\"91\" cy=\"56\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><circle cx=\"109\" cy=\"56\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><path d=\"M90 68 q10 9 20 0\"></path><path d=\"M100 84 L100 90\"></path><path d=\"M88 90 L112 90 L118 148 L82 148 Z\" fill=\"#FFFDF6\"></path><path d=\"M92 148 L88 196 L78 196\"></path><path d=\"M108 148 L112 196 L122 196\"></path><path d=\"M89 96 L74 122 L72 142\"></path><path d=\"M111 96 L132 78 L141 57\"></path><circle cx=\"143\" cy=\"51\" r=\"5.5\" fill=\"#FFFDF6\"></circle><path d=\"M154 42 q6 7 4 15\"></path><path d=\"M161 35 q9 10 6 23\"></path></g><g transform=\"translate(36 188) rotate(-20) scale(1)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#D6336C\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g><g transform=\"translate(150 196) rotate(-160) scale(0.8)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#515ECE\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g></svg>", "search": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"58\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 34 q-3 -9 -9 -12\"></path><path d=\"M100 32 q1 -10 -2 -15\"></path><path d=\"M109 34 q4 -9 10 -11\"></path><circle cx=\"91\" cy=\"56\" r=\"9\" fill=\"#FFFFFF\" stroke-width=\"3\"></circle><circle cx=\"110\" cy=\"56\" r=\"9\" fill=\"#FFFFFF\" stroke-width=\"3\"></circle><path d=\"M100 55 L101 55\" stroke-width=\"3\"></path><path d=\"M82 54 L75 51\" stroke-width=\"3\"></path><path d=\"M119 54 L126 51\" stroke-width=\"3\"></path><circle cx=\"94\" cy=\"57\" r=\"2.6\" fill=\"#1A1B2E\" stroke=\"none\"></circle><circle cx=\"112\" cy=\"57\" r=\"2.6\" fill=\"#1A1B2E\" stroke=\"none\"></circle><path d=\"M83 42 q7 -5 14 -1\"></path><path d=\"M103 41 q7 -4 14 1\"></path><circle cx=\"101\" cy=\"71\" r=\"3.2\"></circle><path d=\"M100 84 L100 90\"></path><path d=\"M88 90 L112 90 L118 148 L82 148 Z\" fill=\"#FFFDF6\"></path><path d=\"M92 148 L88 196 L78 196\"></path><path d=\"M108 148 L112 196 L122 196\"></path><path d=\"M89 96 L75 113 L86 126\"></path><path d=\"M111 96 L128 114 L141 116\"></path><path d=\"M140 117 L152 105\" stroke-width=\"5\"></path><circle cx=\"163\" cy=\"93\" r=\"17\" fill=\"#E8F4DE\"></circle><path d=\"M155 85 q5 -5 11 -4\" stroke-width=\"2.5\"></path></g><g transform=\"translate(158 104) rotate(-50) scale(0.6)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#D6336C\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g></svg>", "think": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"58\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 34 q-3 -9 -9 -12\"></path><path d=\"M100 32 q1 -10 -2 -15\"></path><path d=\"M109 34 q4 -9 10 -11\"></path><circle cx=\"93\" cy=\"52\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><circle cx=\"111\" cy=\"52\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><path d=\"M84 44 L96 46\"></path><path d=\"M104 46 L116 44\"></path><path d=\"M92 70 q4 -3 8 0 q4 3 8 0\"></path><path d=\"M100 84 L100 90\"></path><path d=\"M88 90 L112 90 L118 148 L82 148 Z\" fill=\"#FFFDF6\"></path><path d=\"M92 148 L88 196 L78 196\"></path><path d=\"M108 148 L112 196 L122 196\"></path><path d=\"M89 96 L80 120 L104 124\"></path><path d=\"M111 96 L128 108 L112 88\"></path><circle cx=\"110\" cy=\"86\" r=\"5\" fill=\"#FFFDF6\"></circle><circle cx=\"131\" cy=\"36\" r=\"3\" fill=\"#FFFDF6\"></circle><circle cx=\"142\" cy=\"25\" r=\"5\" fill=\"#FFFDF6\"></circle><ellipse cx=\"172\" cy=\"20\" rx=\"22\" ry=\"15\" fill=\"#FFFDF6\"></ellipse></g><text x=\"172\" y=\"27\" text-anchor=\"middle\" font-family=\"Baloo Da 2, sans-serif\" font-size=\"20\" font-weight=\"700\" fill=\"#515ECE\">?</text></svg>", "read": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"58\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 34 q-3 -9 -9 -12\"></path><path d=\"M100 32 q1 -10 -2 -15\"></path><path d=\"M109 34 q4 -9 10 -11\"></path><circle cx=\"91\" cy=\"56\" r=\"9\" fill=\"#FFFFFF\" stroke-width=\"3\"></circle><circle cx=\"110\" cy=\"56\" r=\"9\" fill=\"#FFFFFF\" stroke-width=\"3\"></circle><path d=\"M100 55 L101 55\" stroke-width=\"3\"></path><path d=\"M82 54 L75 51\" stroke-width=\"3\"></path><path d=\"M119 54 L126 51\" stroke-width=\"3\"></path><circle cx=\"90\" cy=\"59\" r=\"2.6\" fill=\"#1A1B2E\" stroke=\"none\"></circle><circle cx=\"108\" cy=\"59\" r=\"2.6\" fill=\"#1A1B2E\" stroke=\"none\"></circle><path d=\"M95 70 q5 4 10 0\"></path><path d=\"M100 84 L100 90\"></path><path d=\"M88 90 L112 90 L118 148 L82 148 Z\" fill=\"#FFFDF6\"></path><path d=\"M92 148 L88 196 L78 196\"></path><path d=\"M108 148 L112 196 L122 196\"></path><path d=\"M89 96 L78 112 L80 120\"></path><path d=\"M111 96 L122 112 L120 120\"></path><path d=\"M74 108 L100 115 L126 108 L126 134 L100 141 L74 134 Z\" fill=\"#FFF6D6\"></path><path d=\"M100 115 L100 141\"></path><path d=\"M80 116 l13 3\" stroke-width=\"2\"></path><path d=\"M80 123 l13 3\" stroke-width=\"2\"></path><path d=\"M107 119 l13 -3\" stroke-width=\"2\"></path><path d=\"M107 126 l13 -3\" stroke-width=\"2\"></path></g></svg>", "write": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"58\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 34 q-3 -9 -9 -12\"></path><path d=\"M100 32 q1 -10 -2 -15\"></path><path d=\"M109 34 q4 -9 10 -11\"></path><circle cx=\"87\" cy=\"57\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><circle cx=\"105\" cy=\"57\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><path d=\"M84 44 L96 46\"></path><path d=\"M104 46 L116 44\"></path><path d=\"M93 69 q7 4 14 0\"></path><path d=\"M103 71 q3 5 6 0\" fill=\"#F08A6C\" stroke-width=\"2.5\"></path><path d=\"M100 84 L100 90\"></path><path d=\"M88 90 L112 90 L118 148 L82 148 Z\" fill=\"#FFFDF6\"></path><path d=\"M92 148 L88 196 L78 196\"></path><path d=\"M108 148 L112 196 L122 196\"></path><g transform=\"rotate(-12 82 118)\"><rect x=\"66\" y=\"102\" width=\"30\" height=\"36\" rx=\"3\" fill=\"#FFF6D6\"></rect><path d=\"M71 112 l20 0 M71 119 l20 0 M71 126 l14 0\" stroke-width=\"2\"></path><circle cx=\"72\" cy=\"102\" r=\"2.5\" stroke-width=\"2\"></circle><circle cx=\"81\" cy=\"102\" r=\"2.5\" stroke-width=\"2\"></circle><circle cx=\"90\" cy=\"102\" r=\"2.5\" stroke-width=\"2\"></circle></g><path d=\"M89 96 L76 116 L78 124\"></path><path d=\"M111 96 L120 112 L104 120\"></path><path d=\"M124 96 L100 124\" stroke-width=\"5\" stroke=\"#F2C14E\"></path><path d=\"M124 96 L100 124\" stroke-width=\"1.5\"></path><path d=\"M100 124 l-3 5 l6 -2\" fill=\"#1A1B2E\"></path></g></svg>", "water": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"58\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 34 q-3 -9 -9 -12\"></path><path d=\"M100 32 q1 -10 -2 -15\"></path><path d=\"M109 34 q4 -9 10 -11\"></path><circle cx=\"94\" cy=\"57\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><circle cx=\"112\" cy=\"57\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><path d=\"M90 68 q10 9 20 0\"></path><path d=\"M100 84 L100 90\"></path><path d=\"M88 90 L112 90 L118 148 L82 148 Z\" fill=\"#FFFDF6\"></path><path d=\"M92 148 L88 196 L78 196\"></path><path d=\"M108 148 L112 196 L122 196\"></path><path d=\"M89 96 L76 120 L74 140\"></path><path d=\"M111 96 L128 110 L136 112\"></path><path d=\"M132 112 L156 112 L153 136 L135 136 Z\" fill=\"#CFE8F2\"></path><path d=\"M135 112 q10 -16 20 0\"></path><path d=\"M156 117 L176 104\"></path><path d=\"M180 110 l-2 7 M187 112 l-2 7 M182 121 l-2 7\" stroke=\"#4FA3C7\" stroke-width=\"2.5\"></path><path d=\"M60 197 L210 197\" stroke-width=\"2.5\"></path><path d=\"M184 197 q-3 -20 1 -34\"></path></g><g transform=\"translate(185 174) rotate(-150) scale(0.9)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#D6336C\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g><g transform=\"translate(185 168) rotate(-30) scale(0.8)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#515ECE\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g></svg>", "celebrate": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"58\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 34 q-3 -9 -9 -12\"></path><path d=\"M100 32 q1 -10 -2 -15\"></path><path d=\"M109 34 q4 -9 10 -11\"></path><path d=\"M85 57 q6 -7 12 0\"></path><path d=\"M103 57 q6 -7 12 0\"></path><path d=\"M88 66 q12 16 24 0 Z\" fill=\"#F08A6C\"></path><path d=\"M100 84 L100 90\"></path><path d=\"M88 90 L112 90 L118 148 L82 148 Z\" fill=\"#FFFDF6\"></path><path d=\"M92 148 L82 170 L90 190 L80 192\"></path><path d=\"M108 148 L118 170 L110 190 L120 192\"></path><path d=\"M89 96 L72 74 L64 52\"></path><path d=\"M111 96 L128 74 L136 52\"></path><circle cx=\"63\" cy=\"47\" r=\"5.5\" fill=\"#FFFDF6\"></circle><circle cx=\"137\" cy=\"47\" r=\"5.5\" fill=\"#FFFDF6\"></circle></g><g transform=\"translate(36 40) rotate(20) scale(1)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#D6336C\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g><g transform=\"translate(160 30) rotate(-40) scale(0.8)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#F2C14E\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g><g transform=\"translate(170 92) rotate(10) scale(0.8)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#515ECE\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g><g transform=\"translate(24 104) rotate(-60) scale(0.7)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#F2C14E\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g><path d=\"M150 64 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 Z\" fill=\"#F2C14E\" stroke=\"#1A1B2E\" stroke-width=\"2\"></path><path d=\"M48 70 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 Z\" fill=\"#D6336C\" stroke=\"#1A1B2E\" stroke-width=\"2\"></path></svg>", "credit": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"58\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 34 q-3 -9 -9 -12\"></path><path d=\"M100 32 q1 -10 -2 -15\"></path><path d=\"M109 34 q4 -9 10 -11\"></path><circle cx=\"91\" cy=\"56\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><circle cx=\"109\" cy=\"56\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><path d=\"M83 42 q7 -5 14 -1\"></path><path d=\"M103 41 q7 -4 14 1\"></path><path d=\"M90 68 q10 9 20 0\"></path><path d=\"M100 84 L100 90\"></path><path d=\"M88 90 L112 90 L118 148 L82 148 Z\" fill=\"#FFFDF6\"></path><path d=\"M92 148 L88 196 L78 196\"></path><path d=\"M108 148 L112 196 L122 196\"></path><path d=\"M89 96 L78 118 L84 128\"></path><path d=\"M111 96 L122 118 L116 128\"></path><circle cx=\"100\" cy=\"124\" r=\"23\" fill=\"#F2C14E\"></circle><circle cx=\"100\" cy=\"124\" r=\"16\" stroke-width=\"2.5\"></circle><path d=\"M134 36 l6 -6 M140 46 l9 -2 M128 30 l1 -8\" stroke-width=\"2.5\"></path></g><g transform=\"translate(90 128) rotate(-35) scale(0.75)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#515ECE\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g></svg>", "peek": "<svg viewBox=\"0 0 220 220\" role=\"img\" aria-label=\"কাচুমিয়া\"><g fill=\"none\" stroke=\"#1A1B2E\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"100\" cy=\"84\" r=\"26\" fill=\"#FFFDF6\"></circle><path d=\"M91 60 q-3 -9 -9 -12\"></path><path d=\"M100 58 q1 -10 -2 -15\"></path><path d=\"M109 60 q4 -9 10 -11\"></path><circle cx=\"87\" cy=\"83\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><circle cx=\"105\" cy=\"83\" r=\"3\" fill=\"#1A1B2E\" stroke=\"none\"></circle><path d=\"M83 68 q7 -5 14 -1\"></path><path d=\"M103 67 q7 -4 14 1\"></path><path d=\"M95 96 q5 4 10 0\"></path><path d=\"M20 112 L200 112\" stroke-width=\"3\"></path><circle cx=\"76\" cy=\"106\" r=\"7\" fill=\"#FFFDF6\"></circle><circle cx=\"124\" cy=\"106\" r=\"7\" fill=\"#FFFDF6\"></circle><path d=\"M72 112 l0 -6 M77 112 l0 -7 M120 112 l0 -6 M125 112 l0 -7\" stroke-width=\"2\"></path></g><g transform=\"translate(160 112) rotate(-150) scale(0.9)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#D6336C\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g><g transform=\"translate(40 112) rotate(-20) scale(0.8)\"><path d=\"M0 0 q10 -14 24 -10 q-6 14 -24 10 Z\" fill=\"#515ECE\" stroke=\"#1A1B2E\" stroke-width=\"2.5\"></path><path d=\"M2 -1 q10 -4 18 -8\" stroke=\"#1A1B2E\" stroke-width=\"1.8\"></path></g></svg>"};
+const LOGO_W='data:image/png;base64,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';
+const I={
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>',
+ plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+ work:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+ review:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg>',
+ more:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>',
+ credit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M9 12h6M12 9v6"/></svg>',
+ lib:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h5v15H4zM10 5h5v15h-5z"/><path d="M16 6l4 1-3 13-4-1"/></svg>',
+ user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>',
+ users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18 14.8c2 .7 3.2 2.4 3.6 5.2"/></svg>',
+ key:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/></svg>',
+ chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+ brush:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M14 4l6 6-8 8-6-6z"/><path d="M6 12l-3 8 8-3"/></svg>',
+ org:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 21V9l9-5 9 5v12"/><path d="M9 21v-6h6v6"/></svg>',
+ box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>',
+ persona:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M9.5 8.5h.01M14.5 8.5h.01M10 11c1 1 3 1 4 0"/><path d="M5 21c1.5-3 4-4.5 7-4.5s5.5 1.5 7 4.5"/></svg>',
+ tools:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 7a4 4 0 00-5 5l-6 6 3 3 6-6a4 4 0 005-5l-3 3-3-3z"/></svg>',
+ tree:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="5" rx="1"/><rect x="16" y="17" width="6" height="5" rx="1"/><path d="M12 7v5M5 17v-5h14v5"/></svg>',
+ tpl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12"/></svg>',
+ price:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>',
+ out:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/></svg>',
+ swap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h14l-4-4M20 16H6l4 4"/></svg>',
+ back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+ chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M9 5l7 7-7 7"/></svg>',
+ mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>',
+ pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6 7-12a7 7 0 00-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>',
+ file:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg>'
+};
+/* ===== helpers ===== */
+const BN='০১২৩৪৫৬৭৮৯';
+const bn=n=>String(n).replace(/[0-9]/g,d=>BN[d]);
+const bnc=n=>bn(Number(n).toLocaleString('en-IN'));
+const toNum=s=>{const a=String(s).replace(/[০-৯]/g,d=>BN.indexOf(d)).replace(/[^0-9.\-]/g,'');return a===''||a==='-'?NaN:Number(a)};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const kachu=(p,size)=>`<div class="mascot" style="${size?`width:${size}px;height:${size}px`:''}">${KACHU[p]||KACHU.hello}</div>`;
+const tag=(t,c)=>`<span class="tag ${c||''}">${t}</span>`;
+const K=(k,v)=>`<span data-k="${k}">${v}</span>`;
+const DEMO='<span class="demo">নমুনা ডেটা</span>';
+const hexes=()=>`<svg class="hex" style="right:-20px;top:-18px;width:120px" viewBox="0 0 100 100"><path d="M50 4l40 23v46L50 96 10 73V27z" fill="none" stroke="#fff" stroke-width="5"/></svg><svg class="hex" style="right:60px;bottom:-30px;width:70px" viewBox="0 0 100 100"><path d="M50 4l40 23v46L50 96 10 73V27z" fill="#fff"/></svg>`;
+let toastT;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2600);}
+
+/* ===== mock database (sample data) ===== */
+const SUBJ=[['bangla','বাংলা'],['bgs','বাংলাদেশ ও বিশ্বপরিচয়'],['english','ইংরেজি'],['gk','সাধারণ জ্ঞান'],['ict','আইসিটি'],['iq','আইকিউ'],['math','গণিত'],['science','বিজ্ঞান']];
+const SUBJ_NAME=Object.fromEntries(SUBJ);
+const KINDS=[['notepack','লেকচার নোটপ্যাক','দক্ষতা, ড্রিল, কথার সমস্যা, বিগত প্রশ্ন, মক · PDF','content'],['exam','প্রশ্নপত্র ও মডেল টেস্ট','ট্যাগসহ প্রশ্ন, পূর্ণ ধাপের সমাধান','content'],['guide','তিন নির্দেশিকা','শিক্ষার্থী, অভিভাবক ও শিক্ষকের জন্য','content'],['bank','প্রশ্ন ব্যাংক','বিষয় ও দক্ষতা ধরে সাজানো প্রশ্ন','content'],['thumb','থাম্বনেইল প্রম্পট','লেকচারের থাম্বনেইলের জন্য ছবির প্রম্পট','image']];
+const KIND_NAME=Object.fromEntries(KINDS.map(k=>[k[0],k[1]]));
+const TOOLS=[['content','কন্টেন্ট লেখা + উত্তর-যাচাই'],['build','ডকুমেন্ট বিল্ড + ডেলিভারি গেট'],['review','রিভিউ ও অনুমোদন'],['image','ইমেজ ও থাম্বনেইল']];
+const ROLES=['শিক্ষক','টেক্সট সহযোগী','ইমেজ সহযোগী','ডিজাইনার'];
+function SEED(){
+ const L=[];let tx=0;
+ const P=(date,kind,memo,entries,meta)=>{tx++;entries.forEach(([acc,amt])=>L.push({tx,date,kind,memo,acc,amt,meta:meta||{}}));};
+ // personal wallet: ends at 795, 118 held
+ P('১০ নভে','স্বাগত ক্রেডিট','নতুন অ্যাকাউন্ট',[['treasury',-50],['wallet:personal',50]]);
+ P('১০ নভে','যোগ','অ্যাডমিন যোগ করেছেন',[['treasury',-1000],['wallet:personal',1000]]);
+ P('১১ নভে','আটকে রাখা','নোটপ্যাক · বিজ্ঞান',[['wallet:personal',-70],['hold:j5',70]]);
+ P('১১ নভে','ব্যর্থ, পুরো ফেরত','নোটপ্যাক · বিজ্ঞান',[['hold:j5',-70],['wallet:personal',70]]);
+ P('১২ নভে','আটকে রাখা','তিন নির্দেশিকা · বাংলা',[['wallet:personal',-70],['hold:j3',70]]);
+ P('১২ নভে','খরচ ও বাকিটা ফেরত','তিন নির্দেশিকা · বাংলা',[['hold:j3',-70],['consumed',63],['wallet:personal',7]],{org:'personal',member:'আমি',tool:'content',spend:63,job:1});
+ P('১২ নভে','খরচ','স্যাম্পল (৩টি কাজ)',[['wallet:personal',-74],['consumed',74]],{org:'personal',member:'আমি',tool:'content',spend:74,sample:74});
+ P('১৩ নভে','আটকে রাখা','নোটপ্যাক · গণিত',[['wallet:personal',-70],['hold:j1',70]]);
+ P('১৩ নভে','আটকে রাখা','মডেল টেস্ট · ইংরেজি',[['wallet:personal',-48],['hold:j2',48]]);
+ // school: 2,800 added, 400 spent this month
+ P('১ নভে','যোগ','অ্যাডমিন যোগ করেছেন',[['treasury',-2800],['wallet:school',2800]]);
+ [['গণিত শিক্ষক',[['content',88,0],['content',42,42],['build',40,0],['review',16,0]],4],['ইংরেজি শিক্ষক',[['content',68,0],['content',24,24],['build',25,0],['review',15,0]],3],['বাংলা শিক্ষক',[['content',43,0],['content',15,15],['build',15,0],['review',9,0]],2]].forEach(([m,parts,jobs])=>{
+   parts.forEach(([tool,amt,smp],i)=>P('৫–১২ নভে',smp?'খরচ':'কাজের খরচ',m+' · '+(smp?'স্যাম্পল':tool),[['wallet:school',-amt],['consumed',amt]],{org:'school',member:m,tool,spend:amt,sample:smp,job:(i===0?jobs:0)}));});
+ P('১২ নভে','স্বাগত ক্রেডিট','নতুন অ্যাকাউন্ট',[['treasury',-50],['wallet:t2',50]]);
+ return {tx,ledger:L,
+  orgs:{personal:{name:'আমার অ্যাকাউন্ট',type:'ব্যক্তিগত',status:'সক্রিয়',me:'আমি',myRole:'মালিক'},school:{name:'নমুনা মডেল স্কুল',type:'প্রতিষ্ঠান',status:'সক্রিয়',me:'প্রধান শিক্ষক',myRole:'প্রতিষ্ঠান-অ্যাডমিন'},academy:{name:'শিক্ষাদীক্ষা একাডেমি',type:'প্রতিষ্ঠান',status:'খসড়া',me:'',myRole:''},t2:{name:'[শিক্ষকের নাম]',type:'ব্যক্তিগত',status:'স্বাগত ক্রেডিট',me:'',myRole:''}},
+  ent:{personal:{tools:{content:1,build:1,review:1,image:0},personas:{'ccap.math.bn':1,'ccap.english.bn':1}},school:{tools:{content:1,build:1,review:1,image:0},personas:{'ccap.math.bn':1,'ccap.english.bn':1}},academy:{tools:{},personas:{}},t2:{tools:{content:1,build:1},personas:{'ccap.math.bn':1}}},
+  personas:[['ccap.bangla.bn','bangla','draft'],['ccap.bgs.bn','bgs','draft'],['ccap.english.bn','english','approved'],['ccap.gk.bn','gk','draft'],['ccap.ict.bn','ict','draft'],['ccap.iq.bn','iq','draft'],['ccap.math.bn','math','approved'],['ccap.science.bn','science','draft']].map(([key,subj,status])=>({key,subj,status,v:status==='approved'?'v5':'খসড়া'})),
+  jobs:[
+   {id:'j1',org:'personal',by:'আমি',kind:'notepack',title:'টুকরো বনাম বিন্দু · নোটপ্যাক',subj:'math',subjs:['math'],lec:'লেক ০৩',lessons:1,status:'running',progress:62,credit:70,date:'১৩ নভে'},
+   {id:'j2',org:'personal',by:'আমি',kind:'exam',title:'মডেল টেস্ট (৪০ নম্বর)',subj:'english',subjs:['english'],lec:'লেক ০৪',lessons:1,status:'waiting',progress:50,credit:48,date:'১৩ নভে',decision:'রচনা অংশে কোন ধাঁচ রাখবেন?'},
+   {id:'j3',org:'personal',by:'আমি',kind:'guide',title:'তিন নির্দেশিকা',subj:'bangla',subjs:['bangla'],lec:'লেক ০২',lessons:1,status:'approved',progress:100,credit:63,date:'১২ নভে',review:{round:1,version:1,status:'approved',structured:true}},
+   {id:'j4',org:'personal',by:'আমি',kind:'bank',title:'প্রশ্ন ব্যাংক',subj:'math',subjs:['math'],lec:'লেক ০১–০২',lessons:2,status:'draft',progress:0,credit:0,date:'১২ নভে'},
+   {id:'j5',org:'personal',by:'আমি',kind:'notepack',title:'লেকচার নোটপ্যাক',subj:'science',subjs:['science'],lec:'লেক ০১',lessons:1,status:'failed',progress:0,credit:0,date:'১১ নভে'},
+   {id:'s1',org:'school',by:'গণিত শিক্ষক',kind:'notepack',title:'টুকরো বনাম বিন্দু · নোটপ্যাক',subj:'math',subjs:['math'],lec:'লেক ০৩',lessons:1,status:'review',progress:100,credit:63,date:'১২ নভে',review:{round:1,version:1,status:'waiting',structured:false}},
+   {id:'s2',org:'school',by:'ইংরেজি শিক্ষক',kind:'exam',title:'মডেল টেস্ট (৪০ নম্বর)',subj:'english',subjs:['english'],lec:'লেক ০৪',lessons:1,status:'fixing',progress:100,credit:43,date:'১১ নভে',review:{round:2,version:1,status:'fixing',structured:true}},
+   {id:'s3',org:'school',by:'বাংলা শিক্ষক',kind:'guide',title:'তিন নির্দেশিকা',subj:'bangla',subjs:['bangla'],lec:'লেক ০২',lessons:1,status:'approved',progress:100,credit:57,date:'১০ নভে',review:{round:1,version:1,status:'approved',structured:true}}],
+  members:{school:[{name:'প্রধান শিক্ষক',email:'[ইমেইল]',role:'প্রতিষ্ঠান-অ্যাডমিন',status:'সক্রিয়'},{name:'গণিত শিক্ষক',email:'[ইমেইল]',role:'শিক্ষক',status:'সক্রিয়'},{name:'ইংরেজি শিক্ষক',email:'[ইমেইল]',role:'শিক্ষক',status:'সক্রিয়'},{name:'টেক্সট সহযোগী',email:'[ইমেইল]',role:'টেক্সট সহযোগী',status:'সক্রিয়'},{name:'ডিজাইনার',email:'[ইমেইল]',role:'ডিজাইনার',status:'আমন্ত্রিত'}],personal:[{name:'আমি',email:'[ইমেইল]',role:'মালিক',status:'সক্রিয়'}]},
+  pkg:{school:[['১ম',3],['২য়',3],['৩য়',3],['৪র্থ',4],['৫ম',4]]},
+  price:{notepack:70,exam:48,guide:63,bank:40,thumb:10,samplePage:2,structure:1},
+  branding:{school:{name:'নমুনা মডেল স্কুল',color:'#515ECE',wm:'হালকা লোগো'}},
+  uploads:{personal:[{name:'আমার হাতের নোট · ভগ্নাংশ',kind:'ছবি',kb:2400},{name:'স্কুলের নিজস্ব প্রশ্ন ২০২৫',kind:'Word',kb:1100}],school:[]},
+  alerts:[{text:'২টি পার্সোনা অনুমোদনের অপেক্ষায়'},{text:'১টি সদস্য-আমন্ত্রণ ঝুলে আছে'}],
+  requests:{},
+  audit:[{org:'school',date:'১৩ নভে',text:'ইংরেজি পার্সোনা চালু'},{org:'school',date:'১২ নভে',text:'ক্রেডিট যোগ'},{org:'school',date:'১২ নভে',text:'ইমেজ টুল বন্ধ'}],
+  seq:100};
+}
+let DB=SEED();
+const bal=acc=>DB.ledger.filter(e=>e.acc===acc).reduce((a,e)=>a+e.amt,0);
+const W=org=>'wallet:'+org;
+const heldOf=org=>DB.jobs.filter(j=>j.org===org).reduce((a,j)=>a+bal('hold:'+j.id),0);
+const outstanding=()=>DB.ledger.filter(e=>/^(wallet|hold):/.test(e.acc)).reduce((a,e)=>a+e.amt,0);
+function post(kind,memo,entries,meta){const s=entries.reduce((a,e)=>a+e[1],0);if(s!==0)throw new Error('unbalanced txn');DB.tx++;entries.forEach(([acc,amt])=>DB.ledger.push({tx:DB.tx,date:'আজ',kind,memo,acc,amt,meta:meta||{}}));}
+function audit(org,text){DB.audit.unshift({org,date:'আজ',text});}
+const split=n=>[['consumed',n]];
+const pkgTotal=org=>(DB.pkg[org]||[]).reduce((a,c)=>a+c[1],0);
+const maxUsers=org=>Math.floor(pkgTotal(org)*1.5);
+const entitledSubj=org=>DB.personas.filter(p=>p.status==='approved'&&DB.ent[org]&&DB.ent[org].personas[p.key]).map(p=>p.subj);
+const hasTool=(org,t)=>!!(DB.ent[org]&&DB.ent[org].tools[t]);
+const job=id=>DB.jobs.find(j=>j.id===id);
+
+/* ===== UI state ===== */
+const S={role:'teacher',acct:'personal',workTab:'all',revTab:'all',libTab:'all',orgTab:'all',revId:null,admOrg:'school',bd:null,pkgDraft:null,
+ wz:null};
+function freshWz(){return {step:0,preset:null,kind:'notepack',subjects:['math','english'],lessons:{'math-3':true,'english-4':true},template:'blitz',opts:{o1:1,o2:1,o3:1,o4:1,o6:1,o7:1,o8:1,o9:1,o11:1,o12:1},sCount:2,sPages:3,aiSample:false,sample:0,jobId:null,tab:0};}
+S.wz=freshWz();
+function resetDemo(){DB=SEED();const keep={};Object.assign(S,{role:'teacher',acct:'personal',workTab:'all',revTab:'all',libTab:'all',orgTab:'all',revId:null,admOrg:'school',bd:null,pkgDraft:null,wz:freshWz()});}
+
+/* ===== navigation ===== */
+const NAV={
+ teacher:{tabs:[['home','হোম',I.home],['wizard','নতুন',I.plus,'plus'],['mywork','আমার কাজ',I.work],['review','রিভিউ',I.review],['more','আরও',I.more]],
+  more:[['credits','ক্রেডিট ও লেনদেন','ব্যালান্স, আটকে রাখা আর ফেরত',I.credit],['library','সোর্স লাইব্রেরি','বই, বিগত প্রশ্ন, নিজের আপলোড',I.lib],['account','অ্যাকাউন্ট বদলান','ব্যক্তিগত বা প্রতিষ্ঠান',I.swap],['login','লগআউট (লগইন পেজ)','',I.out]]},
+ org:{tabs:[['org-usage','সারাংশ',I.chart],['org-members','সদস্য',I.users],['org-ent','টুল ও পার্সোনা',I.key],['org-brand','ব্র্যান্ডিং',I.brush],['more','আরও',I.more]],
+  more:[['review','রিভিউ-তালিকা','প্রতিষ্ঠান-প্রধান অনুমোদন দেন',I.review],['account','অ্যাকাউন্ট বদলান','',I.swap]]},
+ admin:{tabs:[['adm-home','ড্যাশবোর্ড',I.chart],['adm-orgs','প্রতিষ্ঠান',I.org],['adm-personas','পার্সোনা',I.persona],['adm-packages','প্যাকেজ',I.box],['more','আরও',I.more]],
+  more:[['adm-org','প্রতিষ্ঠানের অধিকার','টুল, পার্সোনা, ক্রেডিট যোগ',I.key],['adm-tasks','কাজের ধরন ও টুল','',I.tools],['adm-catalog','বিষয় ও পাঠের ক্যাটালগ','',I.tree],['adm-templates','আউটপুট টেমপ্লেট','',I.tpl],['adm-prices','ক্রেডিট মূল্য-তালিকা','মূল্য বদলালে উইজার্ডের হিসাব বদলায়',I.price]]}
+};
+const ROLE_OF={home:'teacher',wizard:'teacher',mywork:'teacher',credits:'teacher',library:'teacher','review-detail':null,review:null,account:null,
+ 'org-usage':'org','org-members':'org','org-ent':'org','org-brand':'org'};
+['adm-home','adm-orgs','adm-org','adm-packages','adm-personas','adm-tasks','adm-catalog','adm-templates','adm-prices'].forEach(r=>ROLE_OF[r]='admin');
+let ROUTE=(location.hash||'').slice(1)||'login';
+function go(r){ROUTE=r;try{history.replaceState(null,'','#'+r)}catch(e){}closeSheet();render();window.scrollTo(0,0);}
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h&&h!==ROUTE){ROUTE=h;closeSheet();render();window.scrollTo(0,0);}});
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;const h=a.getAttribute('href').slice(1);e.preventDefault();if(h)go(h);});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(!b||b.disabled||b.hasAttribute('onclick')||b.closest('.flowbar'))return;if(b.closest('form')&&b.type!=='button')return;toast('নমুনা: আসল অ্যাপে এখানে কাজটি হবে');});
+document.addEventListener('submit',e=>e.preventDefault());
+function setRole(r){S.role=r;if(r==='org')S.acct='school';go({teacher:'home',org:'org-usage',admin:'adm-home'}[r]);}
+function newWiz(){if(S.wz.jobId||S.wz.step>=9)S.wz=freshWz();go('wizard');}
+
+/* ===== flow bar ===== */
+const FLOW=[['login','লগইন','সবার জন্য'],['forgot','পাসওয়ার্ড ভুলে গেছেন','সবার জন্য'],['account','অ্যাকাউন্ট বাছাই','সবার জন্য'],['home','হোম','শিক্ষক']]
+ .concat(['কী বানাবেন','বিষয়','পাঠ','মেটেরিয়াল','টেমপ্লেট','বিশেষ নির্দেশনা','স্যাম্পল ও ক্রেডিট','স্যাম্পল বাছাই','কনফার্ম','অগ্রগতি ও সিদ্ধান্ত','চূড়ান্ত আউটপুট'].map((l,i)=>['wizard:'+i,'উইজার্ড '+bn(i+1)+': '+l,'শিক্ষক']))
+ .concat([['mywork','আমার কাজ','শিক্ষক'],['review','রিভিউ-তালিকা','শিক্ষক / প্রতিষ্ঠান-প্রধান'],['review-detail','রিভিউ-বিস্তারিত','শিক্ষক / প্রতিষ্ঠান-প্রধান'],['credits','ক্রেডিট ও লেনদেন','শিক্ষক'],['library','সোর্স লাইব্রেরি','শিক্ষক'],
+ ['org-usage','ব্যবহার ও ক্রেডিট','প্রতিষ্ঠান-অ্যাডমিন'],['org-members','সদস্য ও রোল','প্রতিষ্ঠান-অ্যাডমিন'],['org-ent','কেনা টুল ও পার্সোনা','প্রতিষ্ঠান-অ্যাডমিন'],['org-brand','স্কুলের ব্র্যান্ডিং','প্রতিষ্ঠান-অ্যাডমিন'],
+ ['adm-home','প্ল্যাটফর্ম ড্যাশবোর্ড','মেইন অ্যাডমিন'],['adm-orgs','প্রতিষ্ঠান ও অ্যাকাউন্ট','মেইন অ্যাডমিন'],['adm-org','প্রতিষ্ঠানের অধিকার','মেইন অ্যাডমিন'],['adm-packages','প্যাকেজ','মেইন অ্যাডমিন'],['adm-personas','পার্সোনা','মেইন অ্যাডমিন'],['adm-tasks','কাজের ধরন ও টুল','মেইন অ্যাডমিন'],['adm-catalog','বিষয় ও পাঠের ক্যাটালগ','মেইন অ্যাডমিন'],['adm-templates','আউটপুট টেমপ্লেট','মেইন অ্যাডমিন'],['adm-prices','ক্রেডিট মূল্য-তালিকা','মেইন অ্যাডমিন']]);
+function flowIdx(){const key=ROUTE==='wizard'?'wizard:'+S.wz.step:ROUTE;return FLOW.findIndex(f=>f[0]===key)}
+function flowGo(i){i=Math.max(0,Math.min(FLOW.length-1,i));const k=FLOW[i][0];
+ if(k.startsWith('wizard:')){const st=+k.split(':')[1];if(S.acct!=='personal'&&S.acct!=='school')S.acct='personal';S.wz.step=st;if(st>=9&&!S.wz.jobId){S.wz.jobId=st===9?'j1':'j3';S.acct='personal';}if(st<9&&S.wz.jobId){const j=S.wz.jobId;S.wz=freshWz();S.wz.step=st;}S.role='teacher';go('wizard');}
+ else go(k);}
+function flowbar(){const i=flowIdx();const f=FLOW[i];
+ return `<div class="flowbar"><button onclick="flowGo(${i-1})" ${i<=0?'disabled':''} aria-label="আগের পেজ">‹</button><button class="mid" onclick="openFlow()"><span class="xs" style="opacity:.75">ফ্লো ${i<0?'—':bn(i+1)}/${bn(FLOW.length)} · ${f?f[2]:''}</span><span class="ell" style="font-weight:700">${f?f[1]:'সব পেজের তালিকা'}</span></button><button onclick="flowGo(${i+1})" ${i>=FLOW.length-1?'disabled':''} aria-label="পরের পেজ">›</button></div>`;}
+function openFlow(){const sh=document.getElementById('sheet');const cur=flowIdx();let last='';
+ sh.innerHTML=`<div class="grab"></div><h3 style="font-size:18px;margin:0 4px 4px">পুরো ফ্লো</h3><p class="xs muted" style="margin:0 4px 8px">যেকোনো পেজে সরাসরি যান। ‹ › দিয়ে ক্রমানুসারে দেখা যায়।</p>
+ <button class="btn ghost sm" style="width:100%;margin-bottom:6px" onclick="resetDemo();closeSheet();go('login');toast('নমুনা ডেটা শুরুর অবস্থায় ফিরেছে')">নমুনা ডেটা আবার শুরু করুন</button>`+
+ FLOW.map((f,i)=>{let h='';if(f[2]!==last){last=f[2];h=`<div class="xs" style="font-weight:700;color:var(--mag);margin:12px 4px 2px">${f[2]}</div>`;}
+  return h+`<a class="it" href="#" onclick="flowGo(${i});return false" style="${i===cur?'background:var(--tint);border-radius:10px;padding-left:8px':''}"><span class="pin" style="background:${i===cur?'var(--mag)':'var(--blue)'}">${bn(i+1)}</span><span style="flex:1">${f[1]}</span>${I.chev}</a>`}).join('');
+ sh.classList.add('open');document.getElementById('scrim').style.display='block';}
+function openSheet(){const n=NAV[S.role];const sh=document.getElementById('sheet');
+ sh.innerHTML=`<div class="grab"></div><h3 style="font-size:18px;margin:0 4px 6px">আরও পেজ</h3>`+n.more.map(([id,lab,sub,ic])=>`<a class="it" href="#${id}" data-nav="${id}"><span class="ico">${ic}</span><span style="flex:1">${lab}${sub?`<small>${sub}</small>`:''}</span>${I.chev}</a>`).join('');
+ sh.classList.add('open');document.getElementById('scrim').style.display='block';}
+function closeSheet(){document.getElementById('sheet').classList.remove('open');document.getElementById('scrim').style.display='none';}
+document.getElementById('scrim').onclick=closeSheet;
+
+function topbar(){
+ const o=DB.orgs[S.acct];
+ const ctx={teacher:o.name+' · '+(S.acct==='school'?'শিক্ষক (প্রধান শিক্ষক)':'শিক্ষক'),org:'নমুনা মডেল স্কুল · প্রতিষ্ঠান-অ্যাডমিন',admin:'Schola · মেইন অ্যাডমিন'}[S.role];
+ const right=S.role==='teacher'?`<button class="chip" data-act="NAV-CHIP" onclick="go('credits')" aria-label="ক্রেডিট-ব্যালান্স">${K('chip',bnc(bal(W(S.acct))))} ক্রেডিট</button>`:S.role==='org'?`<span class="chip">${K('chip-org',bnc(bal(W('school'))))} ক্রেডিট</span>`:`<span class="chip">মালিক</span>`;
+ return `<header class="top"><img src="${LOGO_W}" alt="Schola"><div class="grow"><div class="disp" style="font-size:15px;font-weight:700">কন্টেন্ট স্টুডিও</div><div class="ctx">${ctx}</div></div>${right}</header>
+ <div class="rolebar" role="group" aria-label="কোন ভূমিকার ভিউ"><button data-act="NAV-ROLE-T" aria-pressed="${S.role==='teacher'}" onclick="setRole('teacher')">শিক্ষক</button><button data-act="NAV-ROLE-O" aria-pressed="${S.role==='org'}" onclick="setRole('org')">প্রতিষ্ঠান-অ্যাডমিন</button><button data-act="NAV-ROLE-A" aria-pressed="${S.role==='admin'}" onclick="setRole('admin')">মেইন অ্যাডমিন</button></div><div class="tape"></div>`;
+}
+function bottomNav(cur){
+ const n=NAV[S.role];const inMore=n.more.some(m=>m[0]===cur);
+ return `<nav class="nav" aria-label="প্রধান মেনু">${n.tabs.map(([id,lab,ic,cls])=>{
+   const active=id===cur||(id==='more'&&inMore)||(id==='review'&&cur==='review-detail');
+   if(id==='more')return `<a href="#" data-nav="more" onclick="openSheet();return false" ${active?'aria-current="page"':''}>${ic}<span>${lab}</span></a>`;
+   if(cls==='plus')return `<a class="plus" href="#" data-nav="wizard" onclick="newWiz();return false" ${active?'aria-current="page"':''}><span class="b">${ic}</span><span>${lab}</span></a>`;
+   return `<a href="#${id}" data-nav="${id}" ${active?'aria-current="page"':''}>${ic}<span>${lab}</span></a>`}).join('')}</nav>`;
+}
+function head(t,p,extra){return `<div class="page-h"><h1>${t}${extra||''}</h1>${p?`<p>${p}</p>`:''}</div>`}
+const back=(r,l)=>`<button class="row link small" onclick="go('${r}')" style="margin-bottom:8px;color:var(--blue)">${I.back.replace('<svg','<svg width="18" height="18"')} ${l}</button>`;
+
+/* ===== job status helpers ===== */
+const ST={draft:['খসড়া','off','draft'],waiting:['সিদ্ধান্তের অপেক্ষায়','wait','wait'],running:['চলছে','run','run'],review:['রিভিউয়ের অপেক্ষায়','wait','wait'],fixing:['সংশোধন চলছে','run','run'],approved:['অনুমোদিত','ok','done'],failed:['ব্যর্থ · ক্রেডিট ফেরত','fail','fail']};
+const myJobs=()=>DB.jobs.filter(j=>j.org===S.acct&&j.by===DB.orgs[S.acct].me);
+function jobAction(j){
+ if(j.status==='running'||j.status==='waiting')return [j.status==='waiting'?'সিদ্ধান্ত দিন':'অগ্রগতি',`openJob('${j.id}')`,'JOB-OPEN'];
+ if(j.status==='review'||j.status==='fixing')return ['রিভিউ',`openReview('${j.id}')`,'JOB-REVIEW'];
+ if(j.status==='approved')return ['ফাইল নিন',`openFiles('${j.id}')`,'JOB-FILES'];
+ if(j.status==='draft')return ['চালিয়ে যান',`resumeDraft('${j.id}')`,'T16'];
+ return ['আবার চেষ্টা',`retryJob('${j.id}')`,'T15'];
+}
+function openJob(id){S.wz=freshWz();S.wz.jobId=id;S.wz.step=9;go('wizard');}
+function openFiles(id){S.wz=freshWz();S.wz.jobId=id;S.wz.step=10;go('wizard');}
+function openReview(id){S.revId=id;go('review-detail');}
+function resumeDraft(id){const j=job(id);S.wz=freshWz();S.wz.kind=j.kind;S.wz.subjects=j.subjs.slice();S.wz.lessons={[j.subj+'-1']:true,[j.subj+'-2']:true};S.wz.step=2;go('wizard');}
+function retryJob(id){const j=job(id);if(!entitledSubj(j.org).includes(j.subj)){S.wz=freshWz();S.wz.kind=j.kind;S.wz.subjects=[];S.wz.step=1;go('wizard');toast(SUBJ_NAME[j.subj]+'-এর পার্সোনা এখন প্যাকেজে নেই; অন্য বিষয় বাছুন');return;}S.wz=freshWz();S.wz.kind=j.kind;S.wz.subjects=j.subjs.slice();S.wz.lessons={[j.subj+'-1']:true};S.wz.sCount=0;S.wz.step=8;go('wizard');toast('আগের পছন্দগুলো ভরে দেওয়া হলো');}
+
+/* ===== teacher screens ===== */
+function scrHome(){
+ const mine=myJobs();const wait=mine.filter(j=>j.status==='waiting');const run=mine.filter(j=>j.status==='running');
+ return `<section class="card dark hero" style="padding:18px">${hexes()}
+  <div class="row" style="align-items:flex-end"><div style="flex:1"><div class="xs" style="opacity:.85">${esc(DB.orgs[S.acct].name)}</div><h1 style="font-size:24px;color:#fff">আজ কী বানানো যাক?</h1>
+  <p class="small" style="margin:6px 0 12px;opacity:.92">${bn(wait.length)}টি কাজ সিদ্ধান্তের অপেক্ষায়, ${bn(run.length)}টি চলছে।</p></div>${kachu('hello',86)}</div>
+  <button class="btn white" data-act="NAV-NEW" onclick="newWiz()">${I.plus} নতুন কন্টেন্ট শুরু করুন</button></section>
+ ${wait.map(j=>`<section class="card warn" data-k="decision-card"><span class="tag wait">একটি প্রশ্ন জমে আছে</span><p class="small" style="margin:8px 0 10px"><b>${j.title}</b>: ${j.decision||'আপনার সিদ্ধান্ত দরকার'}</p><button class="btn sm pri" data-act="T17" onclick="openJob('${j.id}')">সিদ্ধান্ত দিন</button></section>`).join('')}
+ <section class="card"><div class="between"><div><div class="xs muted">ক্রেডিট-ব্যালান্স ${DEMO}</div><div class="big" style="color:var(--blue2);margin-top:4px">${K('home-bal',bnc(bal(W(S.acct))))}</div></div>${kachu('credit',64)}</div>
+  <p class="xs muted" style="margin:6px 0 10px">এর বাইরে ${K('home-held',bnc(heldOf(S.acct)))} ক্রেডিট চলমান কাজে আটকে আছে।</p><a class="link small" href="#credits">লেনদেন দেখুন →</a></section>
+ <div class="sec"><h2>আমার কাজ</h2><a href="#mywork">সব দেখুন</a></div>
+ <div class="card list">${mine.length?mine.slice(-3).reverse().map(j=>{const a=jobAction(j);return `<div class="item"><div class="grow"><div class="ttl ell">${j.title}</div><div class="xs muted">${SUBJ_NAME[j.subj]} · ${j.lec}</div><div style="margin-top:6px">${tag(ST[j.status][0],ST[j.status][1])}</div></div><button class="btn sm ghost" onclick="${a[1]}">${a[0]}</button></div>`}).join(''):'<p class="small muted" style="margin:0">এই অ্যাকাউন্টে এখনো আপনার কোনো কাজ নেই।</p>'}</div>`;
+}
+function scrMyWork(){
+ const F=[['all','সব'],['run','চলছে'],['wait','অপেক্ষায়'],['done','সম্পন্ন'],['draft','খসড়া'],['fail','ব্যর্থ']];
+ const mine=myJobs();const list=mine.filter(j=>S.workTab==='all'||ST[j.status][2]===S.workTab).slice().reverse();
+ return head('আমার কাজ',esc(DB.orgs[S.acct].name)+'-এ আপনার কাজ। অন্য অ্যাকাউন্টের কাজ এখানে দেখা যায় না।',DEMO)+
+ `<div class="tabs" role="group">${F.map(([id,l])=>{const c=id==='all'?mine.length:mine.filter(j=>ST[j.status][2]===id).length;return `<button aria-pressed="${S.workTab===id}" onclick="S.workTab='${id}';render()">${l} (${K('mw-'+id,bn(c))})</button>`}).join('')}</div>`+
+ (list.length?list.map(j=>{const a=jobAction(j);const h=bal('hold:'+j.id);return `<article class="card" data-job="${j.id}"><div class="between" style="align-items:flex-start"><div style="min-width:0"><div class="ttl">${j.title}</div><div class="xs muted">${SUBJ_NAME[j.subj]} · ${j.lec} · ${j.date}</div></div>${tag(ST[j.status][0]+(j.status==='running'?' '+bn(j.progress)+'%':''),ST[j.status][1])}</div>
+  ${j.status==='running'?`<div class="bar" style="margin:10px 0 2px"><i style="width:${j.progress}%"></i></div>`:''}
+  <div class="between" style="margin-top:10px"><span class="small muted">ক্রেডিট: <b style="color:var(--ink)">${h?bn(h)+' (আটকে)':j.credit?bn(j.credit):'—'}</b>${j.review?' · রাউন্ড '+bn(j.review.round):''}</span><button class="btn sm ${j.status==='waiting'?'pri':'ghost'}" data-act="${a[2]}" onclick="${a[1]}">${a[0]}</button></div></article>`}).join(''):'<div class="card"><p class="small muted" style="margin:0">এই তালিকায় কিছু নেই।</p></div>')+
+ `<p class="note">প্ল্যাটফর্মের দোষে কাজ ব্যর্থ হলে আটকে রাখা পুরো ক্রেডিট ফেরত যায়।</p>`;
+}
+function scrCredits(){
+ const acc=W(S.acct);const rows=DB.ledger.filter(e=>e.acc===acc);let run=0;const withBal=rows.map(e=>{run+=e.amt;return {...e,bal:run}}).reverse();
+ return head('ক্রেডিট ও লেনদেন',esc(DB.orgs[S.acct].name),DEMO)+
+ `<section class="card dark hero">${hexes()}<div class="xs" style="opacity:.85">ব্যবহারযোগ্য ব্যালান্স</div><div class="big" style="font-size:44px;margin:4px 0">${K('cr-bal',bnc(bal(acc)))}</div>
+  <p class="small" style="margin:0 0 12px;opacity:.9">এর বাইরে ${K('cr-held',bnc(heldOf(S.acct)))} ক্রেডিট চলমান কাজে আটকে আছে।</p><button class="btn white" disabled>ক্রেডিট কিনুন (শিগগির)</button></section>
+ <section class="card soft"><h3 style="font-size:16px;margin-bottom:8px">ক্রেডিট কীভাবে কাটে</h3>
+  ${[['১','আনুমানিক হিসাব দেখে আপনি অনুমোদন দেন'],['২','ক্রেডিট আটকে রাখা হয়, কাজ চলে'],['৩','শেষে আসল খরচ কাটা হয়, বাকিটা ফেরত']].map(s=>`<div class="row" style="margin:6px 0"><span class="pin" style="background:var(--blue)">${s[0]}</span><span class="small">${s[1]}</span></div>`).join('')}</section>
+ <div class="sec"><h2>লেনদেন (${K('cr-rows',bn(rows.length))})</h2><span class="xs muted">কিছুই মোছা হয় না, শুধু যোগ হয়</span></div>
+ <div class="card list">${withBal.map(r=>`<div class="item" data-row="ledger"><div class="grow"><div class="ttl ell" style="font-size:14px">${r.memo}</div><div class="xs muted">${r.date} · ${r.kind}</div></div><div style="text-align:right"><div style="font-weight:800;color:${r.amt>0?'#1E6B3A':'var(--mag)'}">${r.amt>0?'+':'−'}${bnc(Math.abs(r.amt))}</div><div class="xs muted">${bnc(r.bal)}</div></div></div>`).join('')}</div>`;
+}
+function scrLibrary(){
+ const L=[['NCTB গণিত','পাঠ্যবই','ষষ্ঠ শ্রেণি · দুই ভার্সন','book'],['NCTB ইংরেজি','পাঠ্যবই','ষষ্ঠ শ্রেণি','book'],['ক্যাডেট বিগত প্রশ্ন ২০০১–২০২৬','বিগত প্রশ্ন','বিষয়ভিত্তিক','past'],['৭টি মডেল টেস্ট (audit-সহ)','মডেল টেস্ট','ভর্তি প্রস্তুতি','mock'],['CCAP বাংলা প্রশ্ন ব্যাংক','প্রশ্ন ব্যাংক','৬৩টি ফাইল','past']];
+ const T=[['all','সব'],['book','পাঠ্যবই'],['past','বিগত প্রশ্ন'],['mock','মডেল টেস্ট']];
+ const ups=DB.uploads[S.acct]||(DB.uploads[S.acct]=[]);const kb=ups.reduce((a,u)=>a+u.kb,0);
+ return head('সোর্স লাইব্রেরি','বই, বিগত প্রশ্ন আর মডেল টেস্ট প্ল্যাটফর্মেই আছে।',DEMO)+
+ `<div class="tabs">${T.map(([id,l])=>`<button aria-pressed="${S.libTab===id}" onclick="S.libTab='${id}';render()">${l}</button>`).join('')}</div>
+ <div class="card list">${L.filter(x=>S.libTab==='all'||x[3]===S.libTab).map(x=>`<div class="item"><span class="ico">${I.lib}</span><div class="grow"><div class="ttl">${x[0]}</div><div class="xs muted">${x[1]} · ${x[2]}</div></div>${tag('ব্যবহারযোগ্য','ok')}</div>`).join('')}</div>
+ <div class="sec"><h2>আমার আপলোড (${K('up-count',bn(ups.length))})</h2><span class="xs muted">${K('up-kb',bnc(kb))} KB / [সীমা]</span></div>
+ <label class="btn ghost" style="margin-bottom:12px;cursor:pointer">${I.file} ফাইল যোগ করুন<input type="file" data-act="T18" hidden onchange="addUpload(this)"></label>
+ <div class="card list">${ups.length?ups.map((x,i)=>`<div class="item"><div class="grow"><div class="ttl ell">${esc(x.name)}</div><div class="xs muted">${x.kind} · ${bnc(x.kb)} KB · পড়া শেষ</div></div><button class="btn sm ghost" data-act="T19" onclick="delUpload(${i})">মুছুন</button></div>`).join(''):'<p class="small muted" style="margin:0">এই অ্যাকাউন্টে কোনো আপলোড নেই।</p>'}</div>
+ <p class="note">আপনার আপলোড শুধু এই অ্যাকাউন্টে থাকে। শিক্ষার্থীর ব্যক্তিগত তথ্য দেবেন না।</p>`;
+}
+function addUpload(inp){const f=inp.files&&inp.files[0];if(!f)return;DB.uploads[S.acct].push({name:f.name,kind:(f.name.split('.').pop()||'').toUpperCase(),kb:Math.max(1,Math.round(f.size/1024))});toast('আপলোড হয়েছে');render();}
+function delUpload(i){DB.uploads[S.acct].splice(i,1);toast('মুছে ফেলা হলো');render();}
+function scrAccount(){
+ const c=(id,k,desc)=>{const o=DB.orgs[id];return `<button class="pick" data-act="${id==='school'?'T03':'T04'}" aria-pressed="${S.acct===id}" onclick="pickAcct('${id}')" style="flex-direction:column;align-items:stretch;gap:6px">
+  <div class="between"><span class="xs muted">${k}</span><span class="tag">${o.myRole}</span></div><div class="ttl" style="font-size:17px">${o.name}</div><div class="small muted">${desc}</div><div style="font-weight:800;color:var(--blue2)">${bnc(bal(W(id)))} ক্রেডিট</div></button>`};
+ return `<div style="text-align:center;margin:6px 0 10px"><div class="mascot" style="margin:0 auto;width:96px;height:96px">${KACHU.think}</div></div>`+
+ head('আজ কোথায় কাজ করবেন?','আপনি দুটি জায়গার সদস্য।')+
+ c('personal','ব্যক্তিগত অ্যাকাউন্ট','এখানে বানানো কন্টেন্ট আপনার নিজের। খরচ আপনার ক্রেডিট থেকে।')+
+ c('school','প্রতিষ্ঠানের অ্যাকাউন্ট','এখানে বানানো কন্টেন্ট প্রতিষ্ঠানের। খরচ প্রতিষ্ঠানের ক্রেডিট থেকে।')+
+ `<p class="note">পরে যেকোনো সময় "আরও → অ্যাকাউন্ট বদলান" থেকে বদলানো যাবে।</p>`;
+}
+function pickAcct(id){S.acct=id;S.role='teacher';S.wz=freshWz();S.revId=null;go('home');}
+
+/* ----- review ----- */
+const revList=()=>DB.jobs.filter(j=>j.org===S.acct&&j.review);
+const RV={waiting:['রিভিউয়ের অপেক্ষায়','wait'],fixing:['সংশোধন চলছে','run'],approved:['অনুমোদিত','ok']};
+function scrReview(){
+ const T=[['all','সব'],['waiting','অপেক্ষায়'],['fixing','সংশোধন চলছে'],['approved','অনুমোদিত']];const L=revList();
+ return head('রিভিউ ও অনুমোদন',esc(DB.orgs[S.acct].name)+' · '+(S.acct==='school'?'রিভিউয়ার: প্রতিষ্ঠান-প্রধান':'রিভিউয়ার: আপনি নিজে'),DEMO)+
+ `<div class="tabs">${T.map(([id,l])=>`<button aria-pressed="${S.revTab===id}" onclick="S.revTab='${id}';render()">${l} (${K('rv-'+id,bn(id==='all'?L.length:L.filter(r=>r.review.status===id).length))})</button>`).join('')}</div>`+
+ L.filter(j=>S.revTab==='all'||j.review.status===S.revTab).slice().reverse().map(j=>`<article class="card"><div class="between" style="align-items:flex-start"><div><div class="ttl">${j.title}</div><div class="xs muted">${SUBJ_NAME[j.subj]} · ${j.lec} · ${j.by}</div></div>${tag(RV[j.review.status][0],RV[j.review.status][1])}</div>
+  <div class="between" style="margin-top:10px"><span class="small muted">রাউন্ড ${bn(j.review.round)} · ভার্সন v${bn(j.review.version)}</span><button class="btn sm ${j.review.status==='waiting'?'pri':'ghost'}" data-act="REV-OPEN" onclick="openReview('${j.id}')">${j.review.status==='waiting'?'রিভিউ করুন':'দেখুন'}</button></div></article>`).join('')+
+ `<section class="card soft"><h3 style="font-size:15px;margin-bottom:6px">সংশোধনের খরচের নিয়ম</h3><p class="small" style="margin:0">সিস্টেমের ভুল: <b>বিনামূল্যে</b>। পছন্দ বদল: সেই অংশের হারে <b>ক্রেডিট লাগবে</b>।</p></section>`;
+}
+const FIXES=[['পছন্দ বদল',2,'পৃষ্ঠা ১৪: দক্ষতা ৪-এর শিরোনাম বদলে "দশমিক চিনি" করুন।','wait'],['পছন্দ বদল',4,'পৃষ্ঠা ১৪: ধারণা-বক্সে একটি দৈনন্দিন উদাহরণ (বাজারের হিসাব) যোগ করুন।','wait'],['সিস্টেমের ভুল',0,'পৃষ্ঠা ১৪: ড্রিল ৭-এর উত্তর ভুল; সঠিক উত্তর বসান।','ok']];
+const fixCost=()=>FIXES.reduce((a,f)=>a+f[1],0);
+function scrReviewDetail(){
+ let j=S.revId&&job(S.revId);if(!j||j.org!==S.acct||!j.review){const L=revList();j=L.find(x=>x.review.status==='waiting')||L[0];}
+ if(!j)return back('review','রিভিউ-তালিকা')+'<div class="card">এই অ্যাকাউন্টে রিভিউয়ের কিছু নেই।</div>';
+ S.revId=j.id;const r=j.review;const br=j.org==='school'?DB.branding.school:{name:DB.orgs[j.org].name,wm:'নেই'};
+ const wmText=br.wm==='নেই'?'':br.wm==='স্কুলের নাম'?br.name:'লোগো';
+ const act=r.status==='waiting'?`
+ <h3 style="font-size:16px;margin:0 2px 8px">১. যেভাবে সুবিধা, সেভাবে বলুন</h3>
+ <div class="grid2" style="margin-bottom:10px"><button class="pill">${I.pin.replace('<svg','<svg width="16" height="16" style="vertical-align:-3px"')} পাতায় চিহ্ন (৩)</button><button class="pill">${I.mic.replace('<svg','<svg width="16" height="16" style="vertical-align:-3px"')} ভয়েস নোট</button></div>
+ <h3 style="font-size:16px;margin:14px 2px 8px">২. আমরা গুছিয়ে কাজের ভাষায় লিখে দেব</h3>
+ ${r.structured?'<p class="small muted" style="margin:0 2px 12px">✓ তালিকা তৈরি হয়েছে</p>':`<button class="btn ghost" style="margin-bottom:14px" data-act="T11" onclick="actStructure()">গুছিয়ে সংশোধন-তালিকা বানান (${bn(DB.price.structure)} ক্রেডিট)</button>`}
+ <h3 style="font-size:16px;margin:0 2px 8px">৩. তালিকা মিলিয়ে নিন</h3>
+ ${r.structured?FIXES.map((x,i)=>`<div class="card" style="padding:12px" data-row="fix"><div class="between"><div class="row"><span class="pin">${bn(i+1)}</span>${tag(x[0],x[3])}</div><b class="small">${x[1]?bn(x[1])+' ক্রেডিট':'বিনামূল্যে'}</b></div><p class="small" style="margin:8px 0 0">${x[2]}</p></div>`).join('')+`<div class="between card soft"><b>সংশোধনে মোট</b><b style="color:var(--blue2)">${bn(fixCost())} ক্রেডিট</b></div>`:'<p class="small muted" style="margin:0 2px 12px">ধাপ ২ শেষ হলে এখানে তালিকা আসবে।</p>'}
+ <div class="grid2"><button class="btn ghost" data-act="T12" ${r.structured?'':'disabled'} onclick="actRequestFix()">সংশোধন চাই</button><button class="btn pri" data-act="T14" onclick="actApprove()">অনুমোদন দিন</button></div>
+ <p class="note">${r.structured?'':'সংশোধন চাইতে আগে তালিকা বানাতে হবে। '}অনুমোদন না হলেও আগে খরচ হওয়া ক্রেডিট ফেরত হয় না।</p>`
+ :r.status==='fixing'?`<div class="card warn"><b>সংশোধন চলছে (রাউন্ড ${bn(r.round)})</b><p class="small" style="margin:6px 0 10px">আটকে আছে ${bn(bal('hold:'+j.id))} ক্রেডিট। শেষ হলে নতুন ভার্সন রিভিউতে আসবে।</p><button class="btn pri" data-act="T13" onclick="actFixDone()">(নমুনা) সংশোধন শেষ ধরে নিন</button></div>`
+ :`<div class="card soft"><b>অনুমোদিত · ভার্সন v${bn(r.version)}</b><p class="small" style="margin:6px 0 10px">শিক্ষার্থীর হাতে দেওয়ার জন্য প্রস্তুত।</p><button class="btn ghost" onclick="openFiles('${j.id}')">ফাইল দেখুন</button></div>`;
+ return back('review','রিভিউ-তালিকা')+head('রিভিউ: '+j.title,j.by+' · রাউন্ড '+bn(r.round)+' · ভার্সন v'+bn(r.version)+' · '+K('rd-status',RV[r.status][0]),DEMO)+
+ `<div class="paper"><div class="between xs muted" style="border-bottom:2px solid ${br.color||'#515ECE'};padding-bottom:6px;margin-bottom:8px"><span>${K('paper-name',esc(br.name))} · ${SUBJ_NAME[j.subj]} ${j.lec}</span><span>পৃষ্ঠা ১৪</span></div>
+  <div style="position:relative"><div style="position:absolute;inset:0;display:grid;place-items:center;color:#E3E4F5;font-family:'Baloo Da 2';font-size:26px;font-weight:800;pointer-events:none">${K('paper-wm',esc(wmText))}</div>
+  <b class="disp" style="font-size:16px;position:relative">দক্ষতা ৪: টুকরো থেকে বিন্দুতে</b><div style="background:#EEF0FCcc;border-radius:8px;padding:8px;margin:8px 0;position:relative">ধারণা-বক্স: ভগ্নাংশকে দশমিকে লেখা মানে…</div><div style="position:relative">ড্রিল ৭: ৩/৪ = ০·৭০</div></div>
+  <div class="xs muted" style="border-top:1px solid var(--line);margin-top:10px;padding-top:6px;text-align:center">কন্টেন্ট উন্নয়ন সহযোগী: Schola · www.schola.com</div></div>
+ <p class="xs muted" style="margin:6px 2px 14px">PDF, তাই সংশোধন আমরা করব।</p>`+act;
+}
+function payer(j){return W(j.org)}
+function actStructure(){const j=job(S.revId);const c=DB.price.structure;if(bal(payer(j))<c)return toast('ক্রেডিট যথেষ্ট নেই');
+ post('খরচ','রিভিউ গোছানো · '+j.title,[[payer(j),-c],...split(c)],{org:j.org,member:DB.orgs[j.org].me,tool:'review',spend:c});j.review.structured=true;toast('সংশোধন-তালিকা তৈরি হয়েছে');render();}
+function actRequestFix(){const j=job(S.revId);const c=fixCost();if(bal(payer(j))<c)return toast('ক্রেডিট যথেষ্ট নেই');
+ post('আটকে রাখা','সংশোধন · '+j.title,[[payer(j),-c],['hold:'+j.id,c]]);j.review.status='fixing';j.status='fixing';audit(j.org,'সংশোধন চাওয়া হলো: '+j.title);toast('সংশোধন-কাজ শুরু হলো');render();}
+function actFixDone(){const j=job(S.revId);const h=bal('hold:'+j.id);if(h>0)post('খরচ','সংশোধন · '+j.title,[['hold:'+j.id,-h],...split(h)],{org:j.org,member:DB.orgs[j.org].me||j.by,tool:'review',spend:h});
+ j.review.round++;j.review.version++;j.review.status='waiting';j.review.structured=false;j.status='review';toast('নতুন ভার্সন রিভিউতে এসেছে');render();}
+function actApprove(){const j=job(S.revId);j.review.status='approved';j.status='approved';audit(j.org,'অনুমোদিত: '+j.title);toast('অনুমোদিত');render();}
+
+/* ===== wizard ===== */
+const WL={LABELS:['কী বানাবেন','বিষয়','পাঠ','মেটেরিয়াল','টেমপ্লেট','বিশেষ নির্দেশনা','স্যাম্পল ও ক্রেডিট','স্যাম্পল বাছাই','কনফার্ম','অগ্রগতি','চূড়ান্ত আউটপুট'],
+ TITLES:['আজ কী বানাবেন?','কোন কোন বিষয়ে?','প্রতিটি বিষয়ের কোন পাঠ?','আপনার মেটেরিয়াল দিন','আউটপুট কেমন দেখাবে?','পার্সোনার বিশেষ নির্দেশনা','স্যাম্পল ঠিক করুন, ক্রেডিট অনুমোদন দিন','কোন স্যাম্পলটি পছন্দ?','একবার মিলিয়ে নিন','কাজ এগোচ্ছে','আপনার প্যাক তৈরি!'],
+ POSE:['think','think','search','search','read','think','credit','read','write','water','celebrate'],
+ SAY:['চলুন, আজ কী বানাবো ঠিক করি!','প্যাকেজে যে বিষয়গুলো আছে, সেগুলো থেকে বাছুন।','কোন পাঠগুলো? প্রতিটির জন্য আলাদা প্যাক হবে।','চশমা পরে নিলাম। মেটেরিয়াল খুঁটিয়ে দেখব।','কোন চেহারায় চান? একটা টেমপ্লেট বাছুন।','এই অপশনগুলো পার্সোনা থেকে এসেছে, কোনো ক্রেডিট লাগেনি।','আগে হিসাবটা দেখুন, তারপর অনুমোদন দিন।','সবগুলো পড়ে দেখেছি। এবার আপনার পছন্দ।','সব ঠিক থাকলে শুরু করি?','গাছে পানি দিচ্ছি... কাজ বাড়ছে!','হয়ে গেছে! ফাইলগুলো নিয়ে নিন।'],
+ TPL:[['blitz','Blitz নোটপ্যাক (পূর্ণ)','A4 · দক্ষতা, ড্রিল, বিগত প্রশ্ন, মক'],['student','শিক্ষার্থী সংস্করণ','অনুশীলনী উত্তর ছাড়া'],['full','ফুল প্যাক','নোটপ্যাক আর তিনটি নির্দেশিকা'],['mock','মডেল টেস্ট (৪০ নম্বর)','১০×২ + ৫×৪, পূর্ণ সমাধানসহ']],
+ OPT:[['o1','হেডার','প্রতি পাতায় প্রতিষ্ঠান ও লেকচারের নাম'],['o2','ফুটার','বাংলা পৃষ্ঠা-নম্বর'],['o3','ফুটনোট','বিগত প্রশ্নের উৎস ফুটনোটে'],['o4','টেবিল','দক্ষতার শেষে সারসংক্ষেপ টেবিল'],['o5','টেবিল','অনুশীলনী দুই কলামের ছকে'],['o6','প্রশ্ন','প্রতিটি ড্রিলের উত্তর প্রশ্নের নিচে'],['o7','প্রশ্ন','বিগত প্রশ্নে [ক্যাডেট সাল] ট্যাগ'],['o8','প্রশ্ন','মক টেস্টে পূর্ণ ধাপের সমাধান'],['o9','লেআউট','দক্ষতার শুরুতে রঙিন ধারণা-বক্স'],['o10','লেআউট','মার্জিনে সতর্কতার টিপস'],['o11','সংখ্যা','বাংলা অঙ্ক, দশমিকে ·'],['o12','ব্র্যান্ড','পাতায় হালকা ওয়াটারমার্ক']]};
+function wz(p){Object.assign(S.wz,p);render();}
+function wzSubjects(){const ok=entitledSubj(S.acct);return S.wz.subjects.filter(s=>ok.includes(s));}
+function wzLessonCount(){const subs=wzSubjects();return Object.keys(S.wz.lessons).filter(k=>subs.includes(k.split('-')[0])).length}
+function wzCalc(){const z=S.wz,subs=wzSubjects(),lc=wzLessonCount();const unit=DB.price[z.kind]||0;
+ return {subs,lc,unit,sample:z.aiSample&&z.sCount>0?z.sCount*z.sPages*DB.price.samplePage*Math.max(1,subs.length):0,final:unit*Math.max(1,lc)};}
+function wzToggleLesson(k){const l={...S.wz.lessons};if(l[k])delete l[k];else l[k]=true;wz({lessons:l})}
+function wzToggleSubj(s){if(!entitledSubj(S.acct).includes(s))return toast('এই বিষয়ের পার্সোনা প্যাকেজে নেই');const z=S.wz;wz({subjects:z.subjects.includes(s)?z.subjects.filter(x=>x!==s):z.subjects.concat([s])});}
+function wzPickKind(k){const t=KINDS.find(x=>x[0]===k)[3];if(!hasTool(S.acct,t))return toast('এই কাজের টুল কেনা নেই');wz({kind:k});}
+function wzBody(){
+ const z=S.wz,st=z.step,c=wzCalc(),chosen=SUBJ.filter(s=>c.subs.includes(s[0])),noSample=z.sCount===0,b=bal(W(S.acct));
+ const tabIdx=Math.min(z.tab,Math.max(0,chosen.length-1));
+ const subjTabs=chosen.length>1?`<div class="tabs">${chosen.map((s,i)=>`<button aria-pressed="${i===tabIdx}" onclick="wz({tab:${i}})">${s[1]}</button>`).join('')}</div>`:'';
+ const persona='ccap.'+(chosen[tabIdx]?chosen[tabIdx][0]:'math')+'.bn v5';
+ switch(st){
+ case 0:return `<div class="card soft"><b>প্রিসেট দিয়ে দ্রুত</b><div class="xs muted">${z.preset==='blitz'?'ধরন, টেমপ্লেট ও অপশন ভরে গেছে; শুধু বিষয় ও পাঠ বাছুন।':'একই সিরিজের পরের লেকচারে এক ক্লিকে।'}</div>
+   <div class="grid2" style="margin-top:10px"><button class="pill" aria-pressed="${z.preset==='blitz'}" onclick="wz({preset:'blitz',kind:'notepack',template:'blitz'})">Cadet Blitz প্রিসেট</button><button class="pill" aria-pressed="${z.preset==='manual'}" onclick="wz({preset:'manual'})">নিজে বাছব</button></div></div>`+
+   KINDS.map(k=>{const ok=hasTool(S.acct,k[3]);return `<button class="pick" data-kind="${k[0]}" aria-pressed="${z.kind===k[0]}" aria-disabled="${!ok}" style="${ok?'':'opacity:.5'}" onclick="wzPickKind('${k[0]}')"><span class="box">${z.kind===k[0]?'✓':''}</span><span style="flex:1"><span class="ttl">${k[1]}</span><br><span class="xs muted">${k[2]}</span></span>${ok?'':tag('টুল কেনা নেই','off')}</button>`}).join('');
+ case 1:{const ok=entitledSubj(S.acct);return `<p class="small muted" style="margin:0 2px 10px">বাছাই হয়েছে: <b style="color:var(--ink)">${bn(c.subs.length)}টি বিষয়</b>। একাধিক হলে প্রতিটি নিজের পার্সোনায় চলবে, শেষে এক টেমপ্লেটে মিলবে।</p>`+
+   SUBJ.map(s=>{const on=c.subs.includes(s[0]),en=ok.includes(s[0]);return `<button class="pick" data-subj="${s[0]}" aria-pressed="${on}" aria-disabled="${!en}" style="${en?'':'opacity:.5'}" onclick="wzToggleSubj('${s[0]}')"><span class="box">${on?'✓':''}</span><span class="ttl" style="flex:1">${s[1]}</span>${en?'':tag('প্যাকেজে নেই','off')}</button>`}).join('');}
+ case 2:return `<p class="small muted" style="margin:0 2px 10px">মোট পাঠ: <b style="color:var(--ink)">${bn(c.lc)}টি</b></p>`+chosen.map(s=>`<div class="card"><b>${s[1]}</b><div class="grid2" style="margin-top:10px">${[1,2,3,4,5,6].map(n=>{const key=s[0]+'-'+n,on=!!z.lessons[key];return `<button class="pill" style="font-weight:600;font-size:13.5px" aria-pressed="${on}" onclick="wzToggleLesson('${key}')">লেকচার ${bn('0'+n)}</button>`}).join('')}</div></div>`).join('');
+ case 3:return `<div class="card soft"><b>প্ল্যাটফর্মের লাইব্রেরি থেকে নিজে থেকেই যুক্ত</b>${['NCTB ষষ্ঠ শ্রেণির বই','ক্যাডেট বিগত প্রশ্ন ২০০১–২০২৬','৭টি মডেল টেস্ট'].map(x=>`<div class="row small" style="margin-top:6px"><span style="color:var(--blue);font-weight:800">✓</span>${x}</div>`).join('')}</div>
+   <label class="field"><span>নিজের বাড়তি নোট (ঐচ্ছিক)</span><textarea rows="3" placeholder="টেক্সট লিখুন বা পেস্ট করুন"></textarea></label><p class="xs muted">লাইব্রেরিতে আপনার আপলোড: ${bn((DB.uploads[S.acct]||[]).length)}টি</p>`;
+ case 4:return WL.TPL.map(t=>`<button class="pick" aria-pressed="${z.template===t[0]}" onclick="wz({template:'${t[0]}'})"><span style="width:44px;height:56px;border:1.5px solid var(--ink);border-radius:6px;flex:none;background:linear-gradient(#515ECE 0 10px,#fff 10px)"></span><span><span class="ttl">${t[1]}</span><br><span class="xs muted">${t[2]}</span></span></button>`).join('');
+ case 5:{const on=WL.OPT.filter(o=>z.opts[o[0]]).length;return subjTabs+`<p class="small muted" style="margin:0 2px 10px">পার্সোনা: <b style="color:var(--ink)">${persona}</b> · চালু ${bn(on)}/${bn(WL.OPT.length)} · ক্রেডিট ০</p><div class="card list">${WL.OPT.map(o=>{const v=!!z.opts[o[0]];return `<div class="item"><div class="grow"><span class="tag" style="margin-bottom:3px">${o[1]}</span><div class="small">${o[2]}</div></div><button class="toggle" role="switch" aria-checked="${v}" aria-label="${o[2]}" onclick="S.wz.opts['${o[0]}']=${!v};render()"></button></div>`}).join('')}</div>`;}
+ case 6:return `<div class="card"><b>স্যাম্পল কয়টি?</b><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px">${[0,1,2,3].map(v=>`<button class="pill" data-scount="${v}" aria-pressed="${z.sCount===v}" onclick="wz({sCount:${v},sample:0})">${v?bn(v):'নেই'}</button>`).join('')}</div>
+   ${noSample?'':`<b style="display:block;margin-top:12px">প্রতিটির পৃষ্ঠা</b><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px">${[2,3,4].map(v=>`<button class="pill" aria-pressed="${z.sPages===v}" onclick="wz({sPages:${v}})">${bn(v)}</button>`).join('')}</div>
+   <div class="between" style="margin-top:12px"><div><b class="small">ছোট AI-স্যাম্পলও চাই</b><div class="xs muted">না চাইলে শুধু চেহারার নমুনা, ক্রেডিট লাগে না</div></div><button class="toggle" data-k="ai-toggle" role="switch" aria-checked="${z.aiSample}" onclick="wz({aiSample:${!z.aiSample}})"></button></div>`}</div>
+   <div class="card soft"><dl class="kv"><dt>${z.aiSample?'AI-স্যাম্পল':'চেহারার নমুনা'}</dt><dd>${K('wz-sample',bn(c.sample))} ক্রেডিট</dd><dt>পুরো কাজ (আনুমানিক)</dt><dd>${K('wz-final',bnc(c.final))} ক্রেডিট</dd><dt>প্রতি পাঠ</dt><dd>${K('wz-unit',bn(c.unit))}</dd><dt>এখন ব্যালান্স</dt><dd>${bnc(b)}</dd><dt>স্যাম্পলের পর</dt><dd>${bnc(b-c.sample)}</dd></dl>
+   <p class="xs muted" style="margin:8px 0 0">স্যাম্পলের ক্রেডিট ফেরত হয় না।</p></div>`;
+ case 7:{const SMP=[['নমুনা ক','বন্ধুসুলভ ব্যাখ্যা'],['নমুনা খ','পরীক্ষা-কেন্দ্রিক'],['নমুনা গ','গল্প দিয়ে শুরু']].slice(0,z.sCount);
+   return subjTabs+SMP.map((s,i)=>`<div class="card" style="${z.sample===i?'border-color:var(--blue);box-shadow:4px 4px 0 var(--blue)':''}"><div class="paper" style="height:110px;overflow:hidden;font-size:12px"><b>${s[0]}</b><div class="muted">দক্ষতা ১: টুকরো কী?</div><div style="height:8px;background:#EEF0FC;border-radius:4px;margin:6px 0"></div><div style="height:8px;background:#F3F1F8;border-radius:4px;width:80%"></div></div>
+   <div class="between" style="margin-top:10px"><div><b>${s[0]}</b><div class="xs muted">${s[1]}</div></div><button class="btn sm ${z.sample===i?'pri':'ghost'}" onclick="wz({sample:${i}})">${z.sample===i?'বাছাই হয়েছে':'এটি নিন'}</button></div></div>`).join('');}
+ case 8:{const t=WL.TPL.find(x=>x[0]===z.template)[1];
+   return `<div class="card"><dl class="kv"><dt>অ্যাকাউন্ট</dt><dd>${DB.orgs[S.acct].name}</dd><dt>কাজ</dt><dd>${KIND_NAME[z.kind]}</dd><dt>বিষয়</dt><dd>${chosen.map(s=>s[1]).join(', ')||'—'}</dd><dt>পাঠ</dt><dd>${bn(c.lc)}টি</dd><dt>টেমপ্লেট</dt><dd>${t}</dd><dt>স্যাম্পল</dt><dd>${noSample?'নেওয়া হয়নি':['নমুনা ক','নমুনা খ','নমুনা গ'][z.sample]}</dd></dl></div>
+   <div class="card dark hero">${hexes()}<div class="xs" style="opacity:.85">এখন আটকে রাখা হবে</div><div class="big" style="margin:4px 0">${K('wz-hold',bnc(c.final))} ক্রেডিট</div><div class="small" style="opacity:.9">এখন ব্যালান্স ${bnc(b)} · পরে থাকবে ${bnc(b-c.final)}</div></div>
+   <p class="note">৪৮ ঘণ্টায় আপনার সিদ্ধান্ত না পেলে যতটুকু কাজ হয়েছে ততটুকুর ক্রেডিট কাটবে, বাকিটা ফেরত।</p>`;}
+ case 9:{const j=job(z.jobId);if(!j)return '<div class="card">কাজ পাওয়া যায়নি।</div>';const need=j.status==='waiting';const done=!['waiting','running'].includes(j.status);
+   const stg=[['পরিকল্পনা ও দক্ষতা-ম্যাপ','done'],['কন্টেন্ট লেখা','done'],['ড্রিল তৈরি',done?'done':need?'wait':'run'],['উত্তর যাচাই',done?'done':'todo'],['PDF বিল্ড',done?'done':'todo'],['ডেলিভারি গেট',done?'done':'todo']];
+   const CC={done:['#515ECE','শেষ',''],wait:['#F2C14E','অপেক্ষায়','wait'],run:['#D6336C','চলছে','run'],todo:['#fff','বাকি','off']};
+   return `<div class="card soft"><b>${j.title}</b><div class="xs muted">${SUBJ_NAME[j.subj]} · ${j.lec} · আটকে ${K('wz-jobhold',bn(bal('hold:'+j.id)))} ক্রেডিট</div></div><div class="bar" style="height:10px;margin:2px 0 12px"><i style="width:${j.progress}%"></i></div>`+stg.map(s=>`<div class="stage" style="${s[1]==='wait'?'background:#FFF9E6':''}"><span class="dot" style="background:${CC[s[1]][0]}"></span><span style="flex:1;font-weight:600">${s[0]}</span>${tag(CC[s[1]][1],CC[s[1]][2])}</div>`).join('')+
+   (need?`<div class="card warn" style="margin-top:12px"><b>আপনার সিদ্ধান্ত দরকার</b><p class="small" style="margin:6px 0 10px">${j.decision||'ড্রিল ৫-এ কোন পথে এগোব?'}</p><button class="btn ghost" data-act="T08" style="margin-bottom:8px" onclick="actDecide('ক')">ক) প্রথম পথ</button><button class="btn ghost" onclick="actDecide('খ')">খ) দ্বিতীয় পথ</button><p class="xs muted" style="margin:8px 0 0">৪৮ ঘণ্টায় উত্তর না পেলে যতটুকু কাজ হয়েছে ততটুকুর ক্রেডিট কাটবে।</p></div>`
+   :j.status==='running'?`<div class="card soft" style="margin-top:12px"><b>${j.decided?'সিদ্ধান্ত পেয়েছি: '+j.decided+'। ':''}কাজ চলছে</b><p class="xs muted" style="margin:4px 0 0">নিচের বোতাম শুধু নমুনায়: কাজ শেষ হয়েছে ধরে নেয়।</p></div>`:'');}
+ case 10:{const j=job(z.jobId);if(!j)return '';   const files=[['PDF','#F08A6C','নোটপ্যাক · পূর্ণ সংস্করণ'],['PDF','#F08A6C','নোটপ্যাক · শিক্ষার্থী সংস্করণ'],['PDF','#F2C14E','ফুল প্যাক (সব একসঙ্গে)']];
+   return `<div class="card soft"><b>${j.title}</b><dl class="kv" style="margin-top:6px"><dt>আসল খরচ</dt><dd>${bn(j.credit)}</dd><dt>অবস্থা</dt><dd>${ST[j.status][0]}</dd></dl></div>
+   <div class="card list">${files.map(f=>`<div class="item"><span class="ftype" style="background:${f[1]}">${f[0]}</span><div class="grow ttl ell">${f[2]}</div><button class="btn sm ghost" onclick="toast('নমুনা: আসল অ্যাপে ফাইল নামবে')">নিন</button></div>`).join('')}</div>
+   <div class="card"><b>ডেলিভারি গেট</b>${['লোগো ও কভার','হেডার ও ফুটার','বাংলা পৃষ্ঠা-নম্বর','ওয়াটারমার্ক','প্রতিষ্ঠানের নামের বানান','উত্তর যাচাই: ০টি ব্যর্থ'].map(g=>`<div class="row small" style="margin-top:6px"><span style="color:#1E6B3A;font-weight:800">✓</span>${g}</div>`).join('')}</div>
+   ${j.review?`<button class="btn pri" data-act="T10" onclick="openReview('${j.id}')">রিভিউতে দেখুন</button>`:''}<p class="note">প্রথম রিলিজে শুধু PDF; Word পরে।</p>`;}
+ }
+}
+function scrWizard(){
+ const z=S.wz,st=z.step,noSample=z.sCount===0,c=wzCalc();const j=z.jobId&&job(z.jobId);
+ const canNext=st===1?c.subs.length>0:st===2?c.lc>0:st===9?(j&&j.status==='running'):true;
+ let nextLabel=['পরের ধাপ','পরের ধাপ','পরের ধাপ','পরের ধাপ','পরের ধাপ','পরের ধাপ',(z.aiSample&&!noSample?'অনুমোদন দিয়ে স্যাম্পল বানান':'স্যাম্পল দেখুন'),'এই স্যাম্পল নিয়ে এগোন','কনফার্ম করে কাজ শুরু','(নমুনা) কাজ শেষ ধরে নিন','নতুন কাজ শুরু'][st];
+ let act=['W-NEXT','W-NEXT','W-NEXT','W-NEXT','W-NEXT','W-NEXT','T05','W-NEXT','T06','T09','W-NEW'][st];
+ if(st===6&&noSample){nextLabel='স্যাম্পল ছাড়াই এগোন';act='T05b';}
+ if(st===9&&j&&!['waiting','running'].includes(j.status)){nextLabel='চূড়ান্ত আউটপুট দেখুন';act='W-NEXT';}
+ const hint=['','অন্তত একটি বিষয় বাছুন','অন্তত একটি পাঠ বাছুন','এখনো কোনো ক্রেডিট খরচ হয়নি','','এই ধাপেও ক্রেডিট লাগে না',z.aiSample&&!noSample?bn(c.sample)+' ক্রেডিট কাটবে, ফেরত হয় না':'এই স্যাম্পলে ক্রেডিট লাগে না','','কনফার্মের পর '+bnc(c.final)+' ক্রেডিট আটকানো হবে',j&&j.status==='waiting'?'আগে সিদ্ধান্ত দিন':'',''][st];
+ return {wtop:`<div class="wtop"><div class="between"><div><div class="xs muted">ধাপ ${bn(st+1)}/১১ · ${WL.LABELS[st]} · ${esc(DB.orgs[S.acct].name)}</div><h1 style="font-size:20px">${WL.TITLES[st]}</h1></div><button class="btn sm ghost" data-act="NAV-X" onclick="go('home')" aria-label="উইজার্ড বন্ধ করুন">✕</button></div>
+   ${st>0&&st<9&&!z.jobId?`<div class="between small" style="background:#FFF7E0;border-radius:10px;padding:6px 10px;margin-top:8px"><span>অসম্পূর্ণ কাজ চলছে</span><button class="link small" data-act="W-RESET" style="color:var(--blue);font-weight:700" onclick="S.wz=freshWz();render()">নতুন করে শুরু</button></div>`:''}
+   <div class="dots">${WL.LABELS.map((l,i)=>`<i class="${i===7&&noSample?'s':i<st?'d':i===st?'c':''}" title="${l}"></i>`).join('')}</div></div>`,
+  body:`<div class="row" style="margin-bottom:14px;align-items:center">${kachu(WL.POSE[st],70)}<div class="say">${WL.SAY[st]}</div></div>`+wzBody(),
+  act:`<div class="wact"><div class="hint">${hint}</div><div class="row"><button class="btn ghost" style="width:auto;flex:0 0 96px" ${st===0||st>=9?'disabled':''} onclick="wzBack()">পেছনে</button><button class="btn pri" data-act="${act}" style="flex:1" ${canNext?'':'disabled'} onclick="wzNext()">${nextLabel}</button></div></div>`};
+}
+function wzNext(){const z=S.wz,c=wzCalc(),acc=W(S.acct);
+ if(z.step===6){if(z.sCount===0){z.step=8;}else{if(z.aiSample&&c.sample>0){if(bal(acc)<c.sample)return toast('ক্রেডিট যথেষ্ট নেই');post('খরচ','স্যাম্পল · '+c.subs.map(s=>SUBJ_NAME[s]).join(', '),[[acc,-c.sample],...split(c.sample)],{org:S.acct,member:DB.orgs[S.acct].me,tool:'content',spend:c.sample,sample:c.sample});toast(bn(c.sample)+' ক্রেডিট কাটা হলো');}z.step=7;}}
+ else if(z.step===8){if(bal(acc)<c.final){toast('ক্রেডিট যথেষ্ট নেই: দরকার '+bnc(c.final));return;}
+  const id='n'+(++DB.seq);const s0=c.subs[0];
+  DB.jobs.push({id,org:S.acct,by:DB.orgs[S.acct].me,kind:z.kind,title:KIND_NAME[z.kind]+' · '+c.subs.map(s=>SUBJ_NAME[s]).join(' + '),subj:s0,subjs:c.subs.slice(),lec:bn(c.lc)+'টি পাঠ',lessons:c.lc,status:'waiting',progress:40,credit:c.final,date:'আজ',decision:'ড্রিল ৫-এ কোন পথে এগোব?'});
+  post('আটকে রাখা',KIND_NAME[z.kind]+' · '+c.subs.map(s=>SUBJ_NAME[s]).join(', '),[[acc,-c.final],['hold:'+id,c.final]]);
+  audit(S.acct,'নতুন কাজ: '+KIND_NAME[z.kind]);z.jobId=id;z.step=9;toast(bnc(c.final)+' ক্রেডিট আটকানো হলো');}
+ else if(z.step===9){const j=job(z.jobId);if(j.status==='running')settleJob(j);z.step=10;}
+ else if(z.step===10){S.wz=freshWz();}
+ else z.step++;
+ render();window.scrollTo(0,0);}
+function wzBack(){const z=S.wz;z.step=z.step===8&&z.sCount===0?6:Math.max(0,z.step-1);render();window.scrollTo(0,0)}
+function actDecide(x){const j=job(S.wz.jobId);j.status='running';j.progress=62;j.decided=x;audit(j.org,'সিদ্ধান্ত দেওয়া হলো: '+j.title);toast('সিদ্ধান্ত পাঠানো হলো');render();}
+function settleJob(j){const h=bal('hold:'+j.id);const used=Math.round(h*.9);const ref=h-used;
+ const tc=Math.round(used*.7);
+ post('খরচ ও বাকিটা ফেরত',j.title,[['hold:'+j.id,-h],...split(used),[payer(j),ref]],{org:j.org,member:j.by,tool:'content',spend:tc,job:1,jobId:j.id});
+ if(used-tc>0){/* tool attribution only: build share recorded as zero-sum memo */DB.ledger[DB.ledger.length-1].meta.build=used-tc;}
+ j.credit=used;j.status='review';j.progress=100;j.review={round:1,version:1,status:'waiting',structured:false};toast('কাজ শেষ: '+bn(used)+' খরচ, '+bn(ref)+' ফেরত');}
+
+/* ===== org admin ===== */
+function usage(org){const tx={};DB.ledger.filter(e=>e.meta.org===org&&e.meta.spend!==undefined).forEach(e=>{tx[e.tx]=e});return Object.values(tx);}
+function scrOrgUsage(){
+ const U=usage('school');const spend=U.reduce((a,e)=>a+e.meta.spend+(e.meta.build||0),0);
+ const by={};U.forEach(e=>{const m=e.meta.member;by[m]=by[m]||{amt:0,jobs:0,smp:0};by[m].amt+=e.meta.spend+(e.meta.build||0);by[m].jobs+=e.meta.job||0;by[m].smp+=e.meta.sample||0;});
+ const tools={};U.forEach(e=>{tools[e.meta.tool]=(tools[e.meta.tool]||0)+e.meta.spend;if(e.meta.build)tools.build=(tools.build||0)+e.meta.build;});
+ const TN={content:'কন্টেন্ট লেখা',build:'ডকুমেন্ট বিল্ড',review:'রিভিউ',image:'ইমেজ'};const mx=Math.max(1,...Object.values(by).map(x=>x.amt));const tmx=Math.max(1,...Object.values(tools));
+ return head('ব্যবহার ও ক্রেডিট','নমুনা মডেল স্কুল · এ মাসে কে কতটা ব্যবহার করলেন।',DEMO)+
+ `<div class="grid2"><div class="card dark hero" style="margin:0">${hexes()}<div class="xs" style="opacity:.85">প্রতিষ্ঠানের ব্যালান্স</div><div class="big" style="margin-top:4px">${K('ou-bal',bnc(bal(W('school'))))}</div><div class="xs" style="opacity:.85">আটকে ${K('ou-held',bnc(heldOf('school')))}</div></div><div class="card" style="margin:0"><div class="xs muted">এ মাসে খরচ</div><div class="big" style="color:var(--mag);margin-top:4px">${K('ou-spend',bnc(spend))}</div><div class="xs muted">ক্রেডিট</div></div></div>
+ <div class="sec"><h2>সদস্যভিত্তিক</h2></div><div class="card list">${Object.entries(by).map(([m,r])=>`<div class="item" data-row="ou-member" data-name="${esc(m)}"><div class="grow"><div class="ttl">${m}</div><div class="xs muted">${bn(r.jobs)}টি কাজ · স্যাম্পলে ${bn(r.smp)}</div><div class="bar" style="margin-top:6px"><i style="width:${r.amt/mx*100}%"></i></div></div><b style="min-width:44px;text-align:right" data-v>${bn(r.amt)}</b></div>`).join('')}</div>
+ <div class="sec"><h2>টুলভিত্তিক</h2></div><div class="card list">${Object.entries(tools).map(([t,v])=>`<div class="item" data-row="ou-tool" data-name="${t}"><div class="grow"><div class="ttl">${TN[t]||t}</div><div class="bar" style="margin-top:6px"><i style="width:${v/tmx*100}%"></i></div></div><b data-v>${bn(v)}</b></div>`).join('')}</div>
+ <div class="card soft"><b>শিক্ষককে ক্রেডিট ভাগ করে দিন</b><p class="small muted" style="margin:4px 0 10px">প্রস্তাব: প্রতিষ্ঠান থেকে শিক্ষকের ওয়ালেটে ট্রান্সফার। সিদ্ধান্ত বাকি।</p><button class="btn sm ghost" disabled>ভাগ করুন</button></div>`;
+}
+function scrOrgMembers(){
+ const M=DB.members.school;const mx=maxUsers('school');
+ return head('সদস্য ও রোল','রোল বদলালে অডিট-লগে লেখা থাকে।',DEMO)+
+ `<form class="card" onsubmit="event.preventDefault();actInvite()"><label class="field"><span>নতুন সদস্যের ইমেইল</span><input id="inv-email" type="email" placeholder="name@school.edu.bd" inputmode="email"></label>
+ <label class="field"><span>রোল</span><select id="inv-role">${ROLES.concat(['প্রতিষ্ঠান-অ্যাডমিন']).map(r=>`<option>${r}</option>`).join('')}</select></label><button class="btn pri" data-act="O01">আমন্ত্রণ পাঠান</button></form>
+ <div class="sec"><h2>সদস্য (${K('om-count',bn(M.length))})</h2><span class="xs muted">সর্বোচ্চ ${K('om-max',bn(mx))} (প্যাকেজ)</span></div>
+ <div class="card list">${M.map((m,i)=>`<div class="item" data-row="member"><span class="ico">${I.user}</span><div class="grow"><div class="ttl">${esc(m.name)}</div><div class="xs muted">${esc(m.email)} · <span data-role>${m.role}</span></div></div><div style="text-align:right">${tag(m.status,m.status==='সক্রিয়'?'ok':'wait')}${i?`<div><button class="link xs" data-act="${m.status==='আমন্ত্রিত'?'O04':'O03'}" style="color:var(--blue);margin-top:4px" onclick="${m.status==='আমন্ত্রিত'?`actResend(${i})`:`actRole(${i})`}">${m.status==='আমন্ত্রিত'?'আবার পাঠান':'রোল বদলান'}</button></div>`:''}</div></div>`).join('')}</div>`;
+}
+function actInvite(){const e=(document.getElementById('inv-email').value||'').trim();const r=document.getElementById('inv-role').value;const M=DB.members.school;
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e))return toast('সঠিক ইমেইল দিন');if(M.length>=maxUsers('school'))return toast('প্যাকেজের সর্বোচ্চ সদস্য পূর্ণ');
+ M.push({name:e.split('@')[0],email:e,role:r,status:'আমন্ত্রিত'});audit('school','আমন্ত্রণ: '+r);toast('আমন্ত্রণ পাঠানো হলো');render();}
+function actRole(i){const m=DB.members.school[i];const k=ROLES.indexOf(m.role);m.role=ROLES[(k+1)%ROLES.length];audit('school','রোল বদল: '+m.name+' → '+m.role);toast('রোল: '+m.role);render();}
+function actResend(i){audit('school','আমন্ত্রণ আবার পাঠানো: '+DB.members.school[i].name);toast('আমন্ত্রণ আবার পাঠানো হলো');render();}
+function scrOrgEnt(){
+ const e=DB.ent.school;
+ return head('কেনা টুল ও পার্সোনা','শুধু দেখা যায়; বদলাতে প্ল্যাটফর্মের কাছে অনুরোধ।',DEMO)+
+ `<div class="sec" style="margin-top:4px"><h2>টুল (স্তর ১)</h2></div><div class="card list">${TOOLS.map(t=>`<div class="item" data-row="ent-tool" data-name="${t[0]}"><div class="grow ttl">${t[1]}</div>${e.tools[t[0]]?tag('কেনা আছে','ok'):tag('কেনা হয়নি','off')}</div>`).join('')}</div>
+ <div class="sec"><h2>শিক্ষক-পার্সোনা (স্তর ২)</h2><span class="xs muted">${bn(pkgTotal('school'))} আসন</span></div><div class="card list">${DB.personas.filter(p=>['math','english','bangla','science'].includes(p.subj)).map(p=>{const on=p.status==='approved'&&e.personas[p.key];return `<div class="item" data-row="ent-persona" data-name="${p.subj}"><span class="ico">${I.persona}</span><div class="grow"><div class="ttl ell">${p.key}</div><div class="xs muted">${SUBJ_NAME[p.subj]} · ${p.v}</div></div>${on?tag('পাওয়া যায়','ok'):tag('এখনো নয়','off')}</div>`}).join('')}</div>
+ ${DB.requests.school?`<div class="card soft" data-k="req-pending">অনুরোধ পাঠানো হয়েছে · মেইন অ্যাডমিনের অপেক্ষায়</div>`:`<button class="btn ghost" data-act="O05" onclick="actRequest()">বদলের অনুরোধ</button>`}<p class="note">পার্সোনার ভেতরের প্রম্পট কখনো দেখানো হয় না।</p>`;
+}
+function actRequest(){DB.requests.school=true;DB.alerts.unshift({text:'নমুনা মডেল স্কুল: টুল/পার্সোনা বদলের অনুরোধ',req:'school'});audit('school','অধিকার-বদলের অনুরোধ');toast('অনুরোধ পাঠানো হলো');render();}
+function scrOrgBrand(){
+ const sv=DB.branding.school;if(!S.bd)S.bd={...sv};const d=S.bd;const wmText=d.wm==='নেই'?'':d.wm==='স্কুলের নাম'?d.name:'লোগো';
+ return head('স্কুলের ব্র্যান্ডিং','দলিলে স্কুলের নাম ও লোগো। সংরক্ষণের পরেই দলিলে বসবে।',DEMO)+
+ `<div class="paper" style="margin-bottom:14px"><div class="between" style="border-bottom:2px solid ${d.color};padding-bottom:8px"><b class="disp">${esc(d.name)}</b><span style="width:40px;height:40px;border:1.5px dashed #9AA0D8;border-radius:8px;display:grid;place-items:center" class="xs muted">লোগো</span></div>
+  <div style="height:80px;display:grid;place-items:center;color:#D7D9F1;font-family:'Baloo Da 2';font-size:26px;font-weight:800">${esc(wmText)}</div>
+  <div class="between xs muted" style="border-top:1px solid var(--line);padding-top:6px"><span>কন্টেন্ট উন্নয়ন সহযোগী: Schola · www.schola.com</span><span>পৃষ্ঠা ১</span></div></div>
+ <form class="card" onsubmit="event.preventDefault();actBrandSave()"><label class="field"><span>স্কুলের নাম (দলিলে যেভাবে লেখা হবে)</span><input id="bd-name" value="${esc(d.name)}" oninput="S.bd.name=this.value"></label>
+ <label class="field"><span>প্রধান রং</span><input type="color" value="${d.color}" style="padding:4px" onchange="S.bd.color=this.value;render()"></label>
+ <span class="small" style="font-weight:600;display:block;margin-bottom:6px">ওয়াটারমার্ক</span><div class="seg">${['হালকা লোগো','স্কুলের নাম','নেই'].map(x=>`<button type="button" data-wm="${x}" aria-pressed="${d.wm===x}" onclick="S.bd.wm='${x}';render()">${x}</button>`).join('')}</div>
+ <button class="btn pri" data-act="O06">সংরক্ষণ</button></form><p class="note">নিচের লাইন স্কুল বদলাতে পারে না (অস্থায়ী লেখা)। সংরক্ষিত নাম: <b>${K('bd-saved',esc(sv.name))}</b></p>`;
+}
+function actBrandSave(){const n=document.getElementById('bd-name');if(n)S.bd.name=n.value.trim()||S.bd.name;DB.branding.school={...S.bd};audit('school','ব্র্যান্ডিং বদল');toast('সংরক্ষিত');render();}
+
+/* ===== platform admin ===== */
+function stat(l,v,s,c){return `<div class="card" style="margin:0"><div class="xs muted">${l}</div><div class="big" style="font-size:26px;margin:4px 0;color:${c||'var(--blue2)'}">${v}</div><div class="xs muted">${s}</div></div>`}
+function scrAdmHome(){
+ const out=outstanding();const orgs=Object.values(DB.orgs);
+ const recent=[];const seen={};for(let i=DB.ledger.length-1;i>=0&&recent.length<3;i--){const e=DB.ledger[i];if(e.meta.job&&e.meta.org&&!seen[e.tx]){seen[e.tx]=1;recent.push(e);}}
+ return head('প্ল্যাটফর্ম ড্যাশবোর্ড','বকেয়া ক্রেডিট এক নজরে।',DEMO)+
+ `<div class="grid2">${stat('অ্যাকাউন্ট',bn(orgs.filter(o=>o.type==='প্রতিষ্ঠান').length)+' + '+bn(orgs.filter(o=>o.type==='ব্যক্তিগত').length),'প্রতিষ্ঠান + ব্যক্তিগত')}${stat('বকেয়া ক্রেডিট',K('ah-out',bnc(out)),'অব্যবহৃত + আটকে','var(--mag)')}</div>
+ <div class="sec"><h2>সাম্প্রতিক শেষ হওয়া কাজ</h2></div><div class="card list">${recent.map(r=>`<div class="item" data-row="ah-recent"><div class="grow"><div class="ttl ell">${r.memo}</div><div class="xs muted">${DB.orgs[r.meta.org].name} · ${r.date}</div></div><b>${bn(r.meta.spend+(r.meta.build||0))}</b></div>`).join('')}</div>
+ <div class="card warn"><b>নজর দিন (${K('ah-alerts',bn(DB.alerts.length))})</b>${DB.alerts.map(a=>`<div class="small" style="margin-top:6px">• ${a.text}${a.req?` <a class="link" href="#adm-org" onclick="S.admOrg='${a.req}'">খুলুন</a>`:''}</div>`).join('')}</div>`;
+}
+function scrAdmOrgs(){
+ const T=[['all','সব'],['প্রতিষ্ঠান','প্রতিষ্ঠান'],['ব্যক্তিগত','ব্যক্তিগত']];const ids=Object.keys(DB.orgs).filter(id=>S.orgTab==='all'||DB.orgs[id].type===S.orgTab);
+ return head('প্রতিষ্ঠান ও অ্যাকাউন্ট','ব্যক্তিগত অ্যাকাউন্ট হলো এক সদস্যের প্রতিষ্ঠান।',DEMO)+
+ `<button class="btn pri" data-act="P01" style="margin-bottom:12px" onclick="actNewOrg()">+ নতুন প্রতিষ্ঠান</button><div class="tabs">${T.map(([id,l])=>`<button aria-pressed="${S.orgTab===id}" onclick="S.orgTab='${id}';render()">${l}</button>`).join('')}</div>
+ <p class="xs muted" style="margin:0 2px 8px">মোট ${K('ao-count',bn(Object.keys(DB.orgs).length))}টি</p>`+
+ ids.map(id=>{const o=DB.orgs[id],e=DB.ent[id]||{tools:{},personas:{}};const nt=Object.values(e.tools).filter(Boolean).length,np=Object.keys(e.personas).filter(k=>e.personas[k]).length;
+  return `<a class="card" href="#adm-org" data-act="P08" data-org="${id}" onclick="S.admOrg='${id}'" style="display:block;text-decoration:none;color:inherit"><div class="between"><div><div class="ttl">${esc(o.name)}</div><div class="xs muted">${o.type} · ${bn(nt)} টুল · ${bn(np)} পার্সোনা</div></div>${I.chev}</div><div class="between" style="margin-top:8px">${tag(o.status,o.status==='সক্রিয়'?'ok':o.status==='খসড়া'?'off':'wait')}<b style="color:var(--blue2)" data-k="ao-bal-${id}">${bnc(bal(W(id)))} ক্রেডিট</b></div></a>`}).join('')+
+ `<p class="note">নতুন ব্যক্তিগত অ্যাকাউন্টে স্বয়ংক্রিয়ভাবে ৫০ স্বাগত ক্রেডিট।</p>`;
+}
+function actNewOrg(){const id='org'+(++DB.seq);DB.orgs[id]={name:'নতুন প্রতিষ্ঠান '+bn(DB.seq-100),type:'প্রতিষ্ঠান',status:'খসড়া',me:'',myRole:''};DB.ent[id]={tools:{},personas:{}};audit(id,'প্রতিষ্ঠান তৈরি');toast('খসড়া প্রতিষ্ঠান তৈরি হলো');render();}
+function scrAdmOrg(){
+ const id=S.admOrg in DB.orgs?S.admOrg:'school';const o=DB.orgs[id];const e=DB.ent[id]||(DB.ent[id]={tools:{},personas:{}});
+ return back('adm-orgs','প্রতিষ্ঠান-তালিকা')+head(esc(o.name),'দুই স্তরের অনুমতি, সীমা আর ক্রেডিট যোগ। প্রতিটি বদল অডিট-লগে।',DEMO)+
+ `<div class="sec" style="margin-top:4px"><h2>টুল (স্তর ১)</h2></div><div class="card list">${TOOLS.map(t=>{const on=!!e.tools[t[0]];return `<div class="item"><div class="grow ttl">${t[1]}</div><button class="toggle" role="switch" data-act="P03" data-tool="${t[0]}" aria-checked="${on}" aria-label="${t[1]}" onclick="actTool('${id}','${t[0]}')"></button></div>`}).join('')}</div>
+ <div class="sec"><h2>পার্সোনা (স্তর ২)</h2><span class="xs muted">Cadet Blitz 2027</span></div><div class="card list">${DB.personas.map(p=>{const on=!!e.personas[p.key];const ok=p.status==='approved';return `<div class="item"><div class="grow"><div class="ttl" style="font-size:14px">${SUBJ_NAME[p.subj]} · বাংলা</div><div class="xs muted">${ok?'অনুমোদিত':'খসড়া'}</div></div><button class="toggle" role="switch" data-act="${ok?'P04':'P05'}" data-persona="${p.subj}" aria-checked="${on&&ok}" style="${ok?'':'opacity:.4'}" aria-label="${SUBJ_NAME[p.subj]}" onclick="actPersona('${id}','${p.key}')"></button></div>`}).join('')}</div>
+ <p class="note" style="margin-top:-4px">খসড়া পার্সোনা অনুমোদনের আগে কোনো প্রতিষ্ঠানে দেওয়া যায় না।</p>
+ <form class="card" style="margin-top:12px" onsubmit="event.preventDefault();actAddCredit('${id}')"><b>ক্রেডিট যোগ করুন</b><div class="row" style="margin:6px 0 0"><span class="small muted">এখন ব্যালান্স: <b style="color:var(--ink)">${K('ad-bal',bnc(bal(W(id))))}</b></span></div><div class="grid2" style="margin-top:10px"><label class="field"><span>পরিমাণ</span><input id="add-amt" inputmode="numeric" value="১,০০০"></label><label class="field"><span>উৎস</span><select id="add-src"><option>নগদে কেনা</option><option>স্বাগত/উপহার</option></select></label></div><button class="btn pri" data-act="P02">যোগ করুন</button>
+ <p class="xs muted" style="margin:8px 0 0">খাতায় দুটি সারি: প্ল্যাটফর্ম −, প্রতিষ্ঠান + (দ্বৈত-এন্ট্রি)।</p></form>
+ <div class="sec"><h2>অডিট-লগ (${K('ad-audit',bn(DB.audit.filter(a=>a.org===id).length))})</h2></div><div class="card list">${DB.audit.filter(a=>a.org===id).map(a=>`<div class="item small" data-row="audit">${a.date} · ${esc(a.text)}</div>`).join('')||'<p class="small muted" style="margin:0">কিছু নেই</p>'}</div>`;
+}
+function actTool(id,t){const e=DB.ent[id];e.tools[t]=e.tools[t]?0:1;audit(id,(e.tools[t]?'টুল চালু: ':'টুল বন্ধ: ')+t);toast(e.tools[t]?'টুল চালু':'টুল বন্ধ');render();}
+function actPersona(id,key){const p=DB.personas.find(x=>x.key===key);if(p.status!=='approved')return toast('খসড়া পার্সোনা দেওয়া যায় না');const e=DB.ent[id];e.personas[key]=e.personas[key]?0:1;audit(id,(e.personas[key]?'পার্সোনা চালু: ':'পার্সোনা বন্ধ: ')+SUBJ_NAME[p.subj]);toast(e.personas[key]?'পার্সোনা চালু':'পার্সোনা বন্ধ');render();}
+function actAddCredit(id){const n=toNum(document.getElementById('add-amt').value);if(!(n>0)||!Number.isInteger(n))return toast('সঠিক পরিমাণ দিন');const src=document.getElementById('add-src').value;
+ post(src==='নগদে কেনা'?'যোগ':'স্বাগত/উপহার','অ্যাডমিন যোগ করেছেন',[['treasury',-n],[W(id),n]]);audit(id,bnc(n)+' ক্রেডিট যোগ');toast(bnc(n)+' ক্রেডিট যোগ হলো');render();}
+function scrAdmPackages(){
+ if(!S.pkgDraft)S.pkgDraft=DB.pkg.school.map(c=>c.slice());const C=S.pkgDraft;const tot=C.reduce((a,c)=>a+c[1],0);
+ return head('প্যাকেজ: নমুনা মডেল স্কুল','শ্রেণিভেদে পার্সোনা-আসন, আর কতজন মানুষ ব্যবহার করবেন।',DEMO)+
+ `<div class="seg"><button aria-pressed="true">প্রাইমারি</button><button>মাধ্যমিক</button><button>ভর্তি প্রস্তুতি</button></div>
+ <div class="card list">${C.map((c,i)=>`<div class="item"><div class="grow ttl">${c[0]} শ্রেণি</div><div class="row" style="gap:8px"><button class="pill" data-act="P06m" style="width:38px;min-height:38px" onclick="S.pkgDraft[${i}][1]=Math.max(0,S.pkgDraft[${i}][1]-1);render()">−</button><b style="min-width:20px;text-align:center">${bn(c[1])}</b><button class="pill" data-act="P06p" style="width:38px;min-height:38px" onclick="S.pkgDraft[${i}][1]++;render()">+</button></div></div>`).join('')}</div>
+ <div class="grid2"><div class="card dark" style="margin:0"><div class="xs" style="opacity:.85">মোট আসন (খসড়া)</div><div class="big">${K('pk-tot',bn(tot))}</div></div><div class="card" style="margin:0"><div class="xs muted">সর্বোচ্চ ব্যবহারকারী</div><div class="big" style="color:var(--mag)">${K('pk-max',bn(Math.floor(tot*1.5)))}</div><div class="xs muted">${bn(tot)} × ১.৫, নিচে গোল</div></div></div>
+ <p class="xs muted" style="margin:8px 2px">সংরক্ষিত: ${K('pk-saved',bn(pkgTotal('school')))} আসন। সংরক্ষণের আগে কোথাও প্রভাব পড়ে না।</p>
+ <div class="card warn"><b>ভাগাভাগি ঠেকানো (প্রস্তাব, সিদ্ধান্ত বাকি)</b><div class="small" style="margin-top:6px">• প্রতিজনের আলাদা লগইন; একসঙ্গে একটার বেশি ডিভাইসে নয়<br>• নতুন সদস্য যোগ করেন শুধু প্রতিষ্ঠান-অ্যাডমিন; সীমা পূর্ণ হলে আর নয়</div></div>
+ <button class="btn pri" data-act="P06" onclick="actPkgSave()">প্যাকেজ সংরক্ষণ</button>`;
+}
+function actPkgSave(){DB.pkg.school=S.pkgDraft.map(c=>c.slice());audit('school','প্যাকেজ বদল: '+bn(pkgTotal('school'))+' আসন');toast('সংরক্ষিত');render();}
+function scrAdmPersonas(){
+ const L=[['founder-core',36],['teacher-core',92],['assessment-quality',18],['class band',7],['program',15],['version',8],['subject (গণিত)',47]];
+ return head('পার্সোনা ও shared module','সাধারণ পেডাগজি একবার; প্রতিটি পার্সোনা শুধু নিজের অংশ।',DEMO)+
+ `<section class="card"><b>স্তরের ক্রম (inheritance)</b><div style="margin-top:10px">${L.map((l,i)=>`<div class="row" style="margin-left:${i*8}px;margin-bottom:6px"><span style="flex:1;background:${i<6?'#EEF0FC':'#FFF1C9'};border-radius:10px;padding:7px 10px;font-weight:600;font-size:13.5px">${l[0]}</span><span class="xs muted">${bn(l[1])} নিয়ম</span></div>`).join('')}</div></section>
+ <div class="sec"><h2>পার্সোনা-তালিকা</h2></div><div class="card list">${DB.personas.map(p=>`<div class="item"><span class="ico">${I.persona}</span><div class="grow"><div class="ttl ell">${p.key}</div><div class="xs muted">${SUBJ_NAME[p.subj]} · ${p.v}</div></div>${p.status==='approved'?tag('অনুমোদিত','ok'):tag('খসড়া','off')}</div>`).join('')}</div>
+ <p class="note">প্রম্পটের লেখা এখানে লুকানো; শুধু সার্ভারে জোড়া লাগে।</p>`;
+}
+function scrAdmTasks(){
+ return head('কাজের ধরন ও টুল','উইজার্ডের প্রথম ধাপের পেছনে কোন টুল চলে।',DEMO)+
+ KINDS.map(k=>`<div class="card"><div class="between"><div class="ttl">${k[1]}</div>${tag(k[3]==='image'?'ইমেজ টুল':'কন্টেন্ট + বিল্ড')}</div><div class="xs muted" style="margin-top:4px">প্রতিষ্ঠানে এই টুল বন্ধ থাকলে উইজার্ডে ধূসর দেখায়।</div></div>`).join('')+
+ `<div class="sec"><h2>টুল-মডিউল</h2></div><div class="card list">${[['কন্টেন্ট লেখা','AI','wait'],['উত্তর-যাচাই','script','ok'],['ডকুমেন্ট বিল্ড','script','ok'],['ডেলিভারি গেট','script','ok'],['রিভিউ ও অনুমোদন','মানুষ + AI গোছানো',''],['ইমেজ ও থাম্বনেইল','AI','wait']].map(m=>`<div class="item"><div class="grow ttl">${m[0]}</div>${tag(m[1],m[2])}</div>`).join('')}</div><p class="note">একটি বন্ধ থাকলে বাকিগুলো চলে।</p>`;
+}
+function scrAdmCatalog(){
+ const T=[['নমুনা মডেল স্কুল','client',0],['NCTB কারিকুলাম','curriculum',1],['Cadet Blitz 2027','program',2],['বাংলা ভার্সন','version',3],['গণিত','subject',4],['লেকচার ০৩ · টুকরো বনাম বিন্দু','৬ দক্ষতা',5],['ইংরেজি','subject',4]];
+ return head('বিষয় ও পাঠের ক্যাটালগ','এগুলো মেটাডেটা, ডাটাবেসের মূল কাঠামো নয়।',DEMO)+
+ `<div class="card">${T.map(t=>`<div class="row" style="padding:7px 0 7px ${t[2]*14}px;border-bottom:1px solid var(--line)"><span style="width:8px;height:8px;border-radius:2px;background:${t[2]===5?'var(--mag)':'var(--blue)'};flex:none"></span><span style="flex:1;font-weight:${t[2]===5?700:500};font-size:14px">${t[0]}</span><span class="xs muted">${t[1]}</span></div>`).join('')}</div>`;
+}
+function scrAdmTemplates(){
+ return head('আউটপুট টেমপ্লেট','টেমপ্লেট প্ল্যাটফর্মের; লোগো, রং, ওয়াটারমার্ক প্রতিষ্ঠানভেদে।',DEMO)+
+ WL.TPL.map(t=>`<div class="card row"><span style="width:44px;height:56px;border:1.5px solid var(--ink);border-radius:6px;flex:none;background:linear-gradient(#515ECE 0 10px,#fff 10px)"></span><div style="flex:1"><div class="ttl">${t[1]}</div><div class="xs muted">${t[2]}</div></div></div>`).join('')+
+ `<div class="card soft"><b>ফন্ট</b><p class="small" style="margin:4px 0 0">Kalpurush (চালু)। Li font-এর webfont অনুমতি এখনো নেই।</p></div>`;
+}
+function scrAdmPrices(){
+ const R=[['notepack','লেকচার নোটপ্যাক','প্রতি পাঠ'],['exam','মডেল টেস্ট (৪০)','প্রতি পাঠ'],['guide','তিন নির্দেশিকা','প্রতি পাঠ'],['bank','প্রশ্ন ব্যাংক','প্রতি পাঠ'],['samplePage','AI-স্যাম্পল','প্রতি পৃষ্ঠা'],['structure','রিভিউ গোছানো','প্রতি রাউন্ড']];
+ return head('ক্রেডিট মূল্য-তালিকা','শিক্ষক কত ক্রেডিট দেখবেন। বদলালে নতুন কাজের হিসাবে বসে, পুরোনো কাজে নয়।',DEMO)+
+ `<div class="card list">${R.map(r=>`<div class="item"><div class="grow"><div class="ttl">${r[1]}</div><div class="xs muted">${r[2]}</div></div><div class="row" style="gap:6px"><button class="pill" data-act="P07m" data-price="${r[0]}" style="width:36px;min-height:36px" onclick="actPrice('${r[0]}',-${r[0]==='samplePage'||r[0]==='structure'?1:5})">−</button><b style="min-width:28px;text-align:center;color:var(--blue2)" data-k="pr-${r[0]}">${bn(DB.price[r[0]])}</b><button class="pill" data-act="P07" data-price="${r[0]}" style="width:36px;min-height:36px" onclick="actPrice('${r[0]}',${r[0]==='samplePage'||r[0]==='structure'?1:5})">+</button></div></div>`).join('')}</div>`;
+}
+function actPrice(k,d){DB.price[k]=Math.max(0,DB.price[k]+d);audit('platform','মূল্য বদল: '+k+' = '+DB.price[k]);toast('নতুন মূল্য: '+bn(DB.price[k]));render();}
+
+/* ===== login / forgot ===== */
+function scrLogin(){
+ return `<div class="login-wrap"><div class="inner hero">${hexes()}
+  <img src="${LOGO_W}" alt="Schola" style="height:40px;align-self:flex-start">
+  <h1 style="font-size:28px;color:#fff;margin:22px 0 8px">আপনার পাঠ, আপনার ঢঙে — স্তরে স্তরে সাজানো পূর্ণ লেকচার প্যাক</h1>
+  <div class="row" style="gap:6px;flex-wrap:wrap;margin-bottom:6px">${['আগে ক্রেডিটের হিসাব','উত্তর স্বয়ংক্রিয় যাচাই','প্রতিষ্ঠানের ব্র্যান্ডে PDF'].map(x=>`<span class="chip" style="font-weight:500">${x}</span>`).join('')}</div>
+  <div style="align-self:center;margin:8px 0 -6px">${kachu('hello',120)}</div>
+  <form class="card" style="color:var(--ink);margin-top:auto" onsubmit="event.preventDefault();go('account')">
+   <h2 style="font-size:20px;margin-bottom:12px">আবার স্বাগতম!</h2>
+   <label class="field"><span>ইমেইল</span><input type="email" inputmode="email" autocomplete="email" placeholder="you@example.com"></label>
+   <label class="field"><span>পাসওয়ার্ড</span><input type="password" autocomplete="current-password" placeholder="••••••••"></label>
+   <div style="text-align:right;margin:-4px 0 12px"><a class="link small" data-act="T02" href="#forgot">পাসওয়ার্ড ভুলে গেছেন?</a></div>
+   <button class="btn pri" data-act="T01">লগইন করুন</button>
+  </form><p class="xs" style="text-align:center;opacity:.85;margin:14px 0 4px">নমুনা: যেকোনো কিছু লিখে লগইন চাপুন</p></div></div>`;
+}
+function scrForgot(){return `<div class="login-wrap"><div class="inner hero">${hexes()}<img src="${LOGO_W}" alt="Schola" style="height:40px;align-self:flex-start">
+ <div style="align-self:center;margin:24px 0 -6px">${kachu('search',110)}</div>
+ <form class="card" style="color:var(--ink)" onsubmit="event.preventDefault();toast('রিসেট লিংক পাঠানো হয়েছে (নমুনা)');go('login')">
+ <h2 style="font-size:20px;margin-bottom:6px">পাসওয়ার্ড ভুলে গেছেন?</h2><p class="small muted" style="margin:0 0 12px">ইমেইল দিন, নতুন পাসওয়ার্ডের লিংক পাঠাব।</p>
+ <label class="field"><span>ইমেইল</span><input type="email" inputmode="email" placeholder="you@example.com"></label>
+ <button class="btn pri" data-act="T02b">লিংক পাঠান</button><a class="btn ghost" href="#login" style="margin-top:10px">লগইনে ফিরে যান</a></form></div></div>`;}
+
+/* ===== router ===== */
+const SCR={home:scrHome,mywork:scrMyWork,credits:scrCredits,library:scrLibrary,account:scrAccount,review:scrReview,'review-detail':scrReviewDetail,
+ 'org-usage':scrOrgUsage,'org-members':scrOrgMembers,'org-ent':scrOrgEnt,'org-brand':scrOrgBrand,
+ 'adm-home':scrAdmHome,'adm-orgs':scrAdmOrgs,'adm-org':scrAdmOrg,'adm-packages':scrAdmPackages,'adm-personas':scrAdmPersonas,'adm-tasks':scrAdmTasks,'adm-catalog':scrAdmCatalog,'adm-templates':scrAdmTemplates,'adm-prices':scrAdmPrices};
+function render(){
+ let r=ROUTE||'login';
+ if(!['login','forgot','wizard'].includes(r)&&!SCR[r])r='home';
+ const app=document.getElementById('app');
+ if(r==='login'){app.innerHTML=flowbar()+scrLogin();return;}
+ if(r==='forgot'){app.innerHTML=flowbar()+scrForgot();return;}
+ const want=ROLE_OF[r];
+ if(want&&want!==S.role)S.role=want;
+ if(S.role==='org')S.acct='school';
+ if(r!=='org-brand')S.bd=null;
+ if(r!=='adm-packages')S.pkgDraft=null;
+ if(r==='wizard'){S.role='teacher';const w=scrWizard();app.innerHTML=topbar()+flowbar()+w.wtop+`<main class="wiz">${w.body}</main>`+w.act;return;}
+ app.innerHTML=topbar()+flowbar()+`<main>${SCR[r]()}</main>`+bottomNav(r);
+}
+render();
+
+</script>
+<!-- wide:START script -->
+<script>
+/* ===== wide: wide-screen additions =====
+   Additive only: nothing in the original script above is edited.
+   After every render() this adds markup that the CSS shows from 768px / 1024px up
+   and keeps invisible below: a sidebar (same items, order and active state as the
+   bottom menu, with the "আরও" items listed directly), a wizard side panel, column
+   headers for the long lists, and a two-column wrapper for the review detail page.
+   No data, numbers or button behaviour is changed here. */
+(function(){
+ const baseRender=render;
+ const route=()=>{let r=ROUTE||'login';if(!['login','forgot','wizard'].includes(r)&&!SCR[r])r='home';return r;};
+
+ function sideNav(r){
+  const n=NAV[S.role];const moreLabel=(n.tabs.find(t=>t[0]==='more')||[0,'আরও'])[1];
+  const link=(id,lab,ic,sub,plus)=>{const on=id===r||(id==='review'&&r==='review-detail');
+   return `<a ${plus?'class="plus" href="#" onclick="newWiz();return false"':`href="#${id}"`} data-nav="${id}" title="${lab}"${on?' aria-current="page"':''}><span class="si">${ic}</span><span class="sl">${lab}${sub?`<small>${sub}</small>`:''}</span></a>`;};
+  return `<aside class="side"><nav aria-label="প্রধান মেনু">`+
+   n.tabs.filter(t=>t[0]!=='more').map(([id,lab,ic,cls])=>link(id,lab,ic,'',cls==='plus')).join('')+
+   `<div class="side-h">${moreLabel}</div>`+
+   n.more.map(([id,lab,sub,ic])=>link(id,lab,ic,sub,false)).join('')+`</nav></aside>`;
+ }
+
+ function wizSide(){
+  const z=S.wz,st=z.step,c=wzCalc(),noSample=z.sCount===0,j=z.jobId&&job(z.jobId),b=bal(W(S.acct));
+  const steps=WL.LABELS.map((l,i)=>`<li class="${i===7&&noSample?'s':i<st?'d':i===st?'c':''}"${i===st?' aria-current="step"':''}><span class="n">${bn(i+1)}</span><span>${l}</span></li>`).join('');
+  const kv=rows=>`<dl class="kv">${rows.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+  let pick,est,sub;
+  if(j){const h=bal('hold:'+j.id);
+   pick=kv([['অ্যাকাউন্ট',esc(DB.orgs[j.org].name)],['কাজ',esc(j.title)],['পাঠ',j.lec],['অবস্থা',ST[j.status][0]]]);
+   est=h>0?['আটকে',bnc(h)]:['আসল খরচ',bnc(j.credit)];sub='';
+  }else{
+   const chosen=SUBJ.filter(s=>c.subs.includes(s[0])).map(s=>s[1]).join(', ')||'—';
+   const t=WL.TPL.find(x=>x[0]===z.template)[1];
+   pick=kv([['অ্যাকাউন্ট',esc(DB.orgs[S.acct].name)],['কাজ',KIND_NAME[z.kind]],['বিষয়',chosen],['পাঠ',bn(c.lc)+'টি'],['টেমপ্লেট',t],['স্যাম্পল',noSample?'নেওয়া হয়নি':st>=7?['নমুনা ক','নমুনা খ','নমুনা গ'][z.sample]:bn(z.sCount)+'টি']]);
+   est=['পুরো কাজ (আনুমানিক)',bnc(c.final)];sub='প্রতি পাঠ '+bn(c.unit)+' · ';
+  }
+  /* the credit estimate comes first so it is on screen without scrolling, also on short screens */
+  return `<aside class="wside" aria-label="ধাপ ও পছন্দ"><div>`+
+   `<div class="card dark"><div class="xs" style="opacity:.85">${est[0]}</div><div class="big" style="font-size:28px;margin:4px 0">${est[1]} ক্রেডিট</div><div class="small" style="opacity:.9">${sub}এখন ব্যালান্স ${bnc(b)}</div></div>`+
+   `<div class="xs muted ws-h">ধাপ ${bn(st+1)}/১১</div><ol class="wsteps">${steps}</ol>`+
+   `<div class="card soft"><b>${j?'এই কাজ':'এখনকার পছন্দ'}</b>${pick}</div></div></aside>`;
+ }
+
+ /* long lists: which rows form a table, and the column headers shown from 1024px up */
+ const TABLES={
+  'mywork':{rows:'article.card[data-job]',cls:'work',wrap:true,cols:['কাজ','বিষয় · পাঠ · তারিখ','অবস্থা','ক্রেডিট','']},
+  'review':{rows:'article.card',cls:'work',wrap:true,cols:['কাজ','বিষয় · পাঠ · শিক্ষক','অবস্থা','রাউন্ড · ভার্সন','']},
+  'credits':{rows:'.item[data-row=ledger]',cls:'ledger',cols:['বিবরণ','তারিখ · ধরন','পরিমাণ','ব্যালান্স']},
+  'org-members':{rows:'.item[data-row=member]',cls:'member',cols:['','নাম','ইমেইল · রোল','অবস্থা','']},
+  'adm-orgs':{rows:'a.card[data-act=P08]',cls:'org',wrap:true,cols:['নাম','ধরন · টুল · পার্সোনা','অবস্থা','ক্রেডিট','']},
+  'adm-prices':{rows:'.card.list>.item',cls:'price',cols:['কাজের ধরন','একক','মূল্য']}
+ };
+ function tables(main,r){
+  const t=TABLES[r];if(!t)return;const rows=[...main.querySelectorAll(t.rows)];if(!rows.length)return;
+  const head=document.createElement('div');head.className='dt-h dt-'+t.cls;
+  head.innerHTML=t.cols.map(c=>`<span>${c}</span>`).join('');
+  rows.forEach(x=>x.classList.add('dt-r','dt-'+t.cls));
+  let box;
+  if(t.wrap){box=document.createElement('div');box.className='dtw';rows[0].before(box);box.append(...rows);}
+  else{box=rows[0].parentNode;box.classList.add('dt');}
+  box.prepend(head);
+ }
+
+ /* review detail: document preview (left) and review notes (right) from 1024px up */
+ function splitReview(main){
+  const paper=main.querySelector(':scope>.paper');if(!paper)return;
+  const kids=[...main.children],i=kids.indexOf(paper);
+  const doc=document.createElement('div');doc.className='rd-doc';
+  const notes=document.createElement('div');notes.className='rd-notes';
+  paper.before(doc);doc.append(...kids.slice(i,i+2));
+  main.append(notes);notes.append(...kids.slice(i+2));
+ }
+
+ function enhance(){
+  const app=document.getElementById('app'),r=route();
+  app.dataset.scr=r;
+  if(r==='login'||r==='forgot')return;
+  if(r==='wizard'){app.insertAdjacentHTML('beforeend',wizSide());return;}
+  const main=app.querySelector('main');if(!main)return;
+  main.dataset.scr=r;
+  app.insertAdjacentHTML('beforeend',sideNav(r));
+  tables(main,r);
+  if(r==='review-detail')splitReview(main);
+ }
+ render=function(){baseRender();enhance();};
+ enhance();
+})();
+</script>
+<!-- wide:END -->
+</body>
+</html>
