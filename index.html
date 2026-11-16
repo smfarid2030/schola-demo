@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Schola কন্টেন্ট স্টুডিও — মোবাইল নমুনা</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --blue:#515ECE;--blue2:#2E3591;--navy:#1E2366;--mag:#D6336C;--mag2:#C2368F;
@@ -15,8 +13,8 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:#E9E6F3}
-body{font-family:'Hind Siliguri',system-ui,sans-serif;color:var(--ink);font-size:15px;line-height:1.5}
-h1,h2,h3,.disp{font-family:'Baloo Da 2','Hind Siliguri',sans-serif;line-height:1.25;margin:0}
+body{font-family:'Noto Sans Bengali','Nirmala UI',system-ui,sans-serif;color:var(--ink);font-size:15px;line-height:1.5}
+h1,h2,h3,.disp{font-family:'Noto Sans Bengali','Nirmala UI',system-ui,sans-serif;line-height:1.25;margin:0}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
 input,select,textarea{font:inherit}
 .app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;box-shadow:0 0 40px rgba(30,35,102,.12);display:flex;flex-direction:column}
@@ -57,7 +55,7 @@ main.wiz{padding-bottom:calc(150px + var(--safe-b))}
 .muted{color:var(--muted)}
 .small{font-size:13px}
 .xs{font-size:12px}
-.big{font-family:'Baloo Da 2';font-size:34px;font-weight:800;line-height:1}
+.big{font-family:'Noto Sans Bengali','Nirmala UI',system-ui,sans-serif;font-size:34px;font-weight:800;line-height:1}
 .sec{display:flex;align-items:baseline;justify-content:space-between;margin:20px 2px 10px}
 .sec h2{font-size:18px}
 .sec a{font-size:13px;color:var(--blue);font-weight:600;text-decoration:none}
@@ -305,7 +303,7 @@ a.link{color:var(--blue);font-weight:600;text-decoration:none}
 </head>
 <body>
 <!-- wide:START banner -->
-<div class="proto-banner" role="note">প্রোটোটাইপ: নমুনা-ডেটা, আসল অ্যাপ নয় · <a href="design/front.html" style="color:#fff;text-decoration:underline">নতুন সামনের পাতা (নকশা)</a></div>
+<div class="proto-banner" role="note">প্রোটোটাইপ: নমুনা-ডেটা, আসল অ্যাপ নয় · <a href="design/index.html" style="color:#fff;text-decoration:underline">নতুন নকশা ঘুরে দেখুন</a></div>
 <!-- wide:END -->
 <div class="app" id="app"></div>
 <div class="scrim" id="scrim"></div>
@@ -420,7 +418,7 @@ const job=id=>DB.jobs.find(j=>j.id===id);
 /* ===== UI state ===== */
 const S={role:'teacher',acct:'personal',workTab:'all',revTab:'all',libTab:'all',orgTab:'all',revId:null,admOrg:'school',bd:null,pkgDraft:null,
  wz:null};
-function freshWz(){return {step:0,preset:null,kind:'notepack',subjects:['math','english'],lessons:{'math-3':true,'english-4':true},template:'udayan',opts:{o1:1,o2:1,o3:1,o4:1,o6:1,o7:1,o8:1,o9:1,o11:1,o12:1},sCount:2,sPages:3,aiSample:false,sample:0,jobId:null,tab:0};}
+function freshWz(){return {step:0,preset:null,kind:'notepack',subjects:['math','english'],lessons:{'math-3':true,'english-4':true},template:'prep',opts:{o1:1,o2:1,o3:1,o4:1,o6:1,o7:1,o8:1,o9:1,o11:1,o12:1},sCount:2,sPages:3,aiSample:false,sample:0,jobId:null,tab:0};}
 S.wz=freshWz();
 function resetDemo(){DB=SEED();const keep={};Object.assign(S,{role:'teacher',acct:'personal',workTab:'all',revTab:'all',libTab:'all',orgTab:'all',revId:null,admOrg:'school',bd:null,pkgDraft:null,wz:freshWz()});}
 
@@ -592,9 +590,9 @@ function scrReviewDetail(){
  :`<div class="card soft"><b>অনুমোদিত · ভার্সন v${bn(r.version)}</b><p class="small" style="margin:6px 0 10px">শিক্ষার্থীর হাতে দেওয়ার জন্য প্রস্তুত।</p><button class="btn ghost" onclick="openFiles('${j.id}')">ফাইল দেখুন</button></div>`;
  return back('review','রিভিউ-তালিকা')+head('রিভিউ: '+j.title,j.by+' · রাউন্ড '+bn(r.round)+' · ভার্সন v'+bn(r.version)+' · '+K('rd-status',RV[r.status][0]),DEMO)+
  `<div class="paper"><div class="between xs muted" style="border-bottom:2px solid ${br.color||'#515ECE'};padding-bottom:6px;margin-bottom:8px"><span>${K('paper-name',esc(br.name))} · ${SUBJ_NAME[j.subj]} ${j.lec}</span><span>পৃষ্ঠা ১৪</span></div>
-  <div style="position:relative"><div style="position:absolute;inset:0;display:grid;place-items:center;color:#E3E4F5;font-family:'Baloo Da 2';font-size:26px;font-weight:800;pointer-events:none">${K('paper-wm',esc(wmText))}</div>
+  <div style="position:relative"><div style="position:absolute;inset:0;display:grid;place-items:center;color:#E3E4F5;font-family:'Noto Sans Bengali','Nirmala UI',system-ui,sans-serif;font-size:26px;font-weight:800;pointer-events:none">${K('paper-wm',esc(wmText))}</div>
   <b class="disp" style="font-size:16px;position:relative">দক্ষতা ৪: টুকরো থেকে বিন্দুতে</b><div style="background:#EEF0FCcc;border-radius:8px;padding:8px;margin:8px 0;position:relative">ধারণা-বক্স: ভগ্নাংশকে দশমিকে লেখা মানে…</div><div style="position:relative">ড্রিল ৭: ৩/৪ = ০·৭০</div></div>
-  <div class="xs muted" style="border-top:1px solid var(--line);margin-top:10px;padding-top:6px;text-align:center">কন্টেন্ট উন্নয়ন সহযোগী: Schola · www.schola.com</div></div>
+  <div class="xs muted" style="border-top:1px solid var(--line);margin-top:10px;padding-top:6px;text-align:center">কন্টেন্ট উন্নয়ন সহযোগী: Schola · www.schola.example</div></div>
  <p class="xs muted" style="margin:6px 2px 14px">PDF, তাই সংশোধন আমরা করব।</p>`+act;
 }
 function payer(j){return W(j.org)}
@@ -611,7 +609,7 @@ const WL={LABELS:['কী বানাবেন','বিষয়','পাঠ','
  TITLES:['আজ কী বানাবেন?','কোন কোন বিষয়ে?','প্রতিটি বিষয়ের কোন পাঠ?','আপনার মেটেরিয়াল দিন','আউটপুট কেমন দেখাবে?','পার্সোনার বিশেষ নির্দেশনা','স্যাম্পল ঠিক করুন, ক্রেডিট অনুমোদন দিন','কোন স্যাম্পলটি পছন্দ?','একবার মিলিয়ে নিন','কাজ এগোচ্ছে','আপনার প্যাক তৈরি!'],
  POSE:['think','think','search','search','read','think','credit','read','write','water','celebrate'],
  SAY:['চলুন, আজ কী বানাবো ঠিক করি!','প্যাকেজে যে বিষয়গুলো আছে, সেগুলো থেকে বাছুন।','কোন পাঠগুলো? প্রতিটির জন্য আলাদা প্যাক হবে।','চশমা পরে নিলাম। মেটেরিয়াল খুঁটিয়ে দেখব।','কোন চেহারায় চান? একটা টেমপ্লেট বাছুন।','এই অপশনগুলো পার্সোনা থেকে এসেছে, কোনো ক্রেডিট লাগেনি।','আগে হিসাবটা দেখুন, তারপর অনুমোদন দিন।','সবগুলো পড়ে দেখেছি। এবার আপনার পছন্দ।','সব ঠিক থাকলে শুরু করি?','গাছে পানি দিচ্ছি... কাজ বাড়ছে!','হয়ে গেছে! ফাইলগুলো নিয়ে নিন।'],
- TPL:[['udayan','উদয়ন নোটপ্যাক (পূর্ণ)','A4 · দক্ষতা, ড্রিল, বিগত প্রশ্ন, মক'],['student','শিক্ষার্থী সংস্করণ','অনুশীলনী উত্তর ছাড়া'],['full','ফুল প্যাক','নোটপ্যাক আর তিনটি নির্দেশিকা'],['mock','মডেল টেস্ট (৪০ নম্বর)','১০×২ + ৫×৪, পূর্ণ সমাধানসহ']],
+ TPL:[['prep','প্রস্তুতি নোটপ্যাক (পূর্ণ)','A4 · দক্ষতা, ড্রিল, বিগত প্রশ্ন, মক'],['student','শিক্ষার্থী সংস্করণ','অনুশীলনী উত্তর ছাড়া'],['full','ফুল প্যাক','নোটপ্যাক আর তিনটি নির্দেশিকা'],['mock','মডেল টেস্ট (৪০ নম্বর)','১০×২ + ৫×৪, পূর্ণ সমাধানসহ']],
  OPT:[['o1','হেডার','প্রতি পাতায় প্রতিষ্ঠান ও লেকচারের নাম'],['o2','ফুটার','বাংলা পৃষ্ঠা-নম্বর'],['o3','ফুটনোট','বিগত প্রশ্নের উৎস ফুটনোটে'],['o4','টেবিল','দক্ষতার শেষে সারসংক্ষেপ টেবিল'],['o5','টেবিল','অনুশীলনী দুই কলামের ছকে'],['o6','প্রশ্ন','প্রতিটি ড্রিলের উত্তর প্রশ্নের নিচে'],['o7','প্রশ্ন','বিগত প্রশ্নে [ক্যাডেট সাল] ট্যাগ'],['o8','প্রশ্ন','মক টেস্টে পূর্ণ ধাপের সমাধান'],['o9','লেআউট','দক্ষতার শুরুতে রঙিন ধারণা-বক্স'],['o10','লেআউট','মার্জিনে সতর্কতার টিপস'],['o11','সংখ্যা','বাংলা অঙ্ক, দশমিকে ·'],['o12','ব্র্যান্ড','পাতায় হালকা ওয়াটারমার্ক']]};
 function wz(p){Object.assign(S.wz,p);render();}
 function wzSubjects(){const ok=entitledSubj(S.acct);return S.wz.subjects.filter(s=>ok.includes(s));}
@@ -627,8 +625,8 @@ function wzBody(){
  const subjTabs=chosen.length>1?`<div class="tabs">${chosen.map((s,i)=>`<button aria-pressed="${i===tabIdx}" onclick="wz({tab:${i}})">${s[1]}</button>`).join('')}</div>`:'';
  const persona='demo.'+(chosen[tabIdx]?chosen[tabIdx][0]:'math')+'.bn v5';
  switch(st){
- case 0:return `<div class="card soft"><b>প্রিসেট দিয়ে দ্রুত</b><div class="xs muted">${z.preset==='udayan'?'ধরন, টেমপ্লেট ও অপশন ভরে গেছে; শুধু বিষয় ও পাঠ বাছুন।':'একই সিরিজের পরের লেকচারে এক ক্লিকে।'}</div>
-   <div class="grid2" style="margin-top:10px"><button class="pill" aria-pressed="${z.preset==='udayan'}" onclick="wz({preset:'udayan',kind:'notepack',template:'udayan'})">উদয়ন প্রস্তুতি প্রিসেট</button><button class="pill" aria-pressed="${z.preset==='manual'}" onclick="wz({preset:'manual'})">নিজে বাছব</button></div></div>`+
+ case 0:return `<div class="card soft"><b>প্রিসেট দিয়ে দ্রুত</b><div class="xs muted">${z.preset==='prep'?'ধরন, টেমপ্লেট ও অপশন ভরে গেছে; শুধু বিষয় ও পাঠ বাছুন।':'একই সিরিজের পরের লেকচারে এক ক্লিকে।'}</div>
+   <div class="grid2" style="margin-top:10px"><button class="pill" aria-pressed="${z.preset==='prep'}" onclick="wz({preset:'prep',kind:'notepack',template:'prep'})">প্রস্তুতি প্রিসেট</button><button class="pill" aria-pressed="${z.preset==='manual'}" onclick="wz({preset:'manual'})">নিজে বাছব</button></div></div>`+
    KINDS.map(k=>{const ok=hasTool(S.acct,k[3]);return `<button class="pick" data-kind="${k[0]}" aria-pressed="${z.kind===k[0]}" aria-disabled="${!ok}" style="${ok?'':'opacity:.5'}" onclick="wzPickKind('${k[0]}')"><span class="box">${z.kind===k[0]?'✓':''}</span><span style="flex:1"><span class="ttl">${k[1]}</span><br><span class="xs muted">${k[2]}</span></span>${ok?'':tag('টুল কেনা নেই','off')}</button>`}).join('');
  case 1:{const ok=entitledSubj(S.acct);return `<p class="small muted" style="margin:0 2px 10px">বাছাই হয়েছে: <b style="color:var(--ink)">${bn(c.subs.length)}টি বিষয়</b>। একাধিক হলে প্রতিটি নিজের পার্সোনায় চলবে, শেষে এক টেমপ্লেটে মিলবে।</p>`+
    SUBJ.map(s=>{const on=c.subs.includes(s[0]),en=ok.includes(s[0]);return `<button class="pick" data-subj="${s[0]}" aria-pressed="${on}" aria-disabled="${!en}" style="${en?'':'opacity:.5'}" onclick="wzToggleSubj('${s[0]}')"><span class="box">${on?'✓':''}</span><span class="ttl" style="flex:1">${s[1]}</span>${en?'':tag('প্যাকেজে নেই','off')}</button>`}).join('');}
@@ -711,7 +709,7 @@ function scrOrgUsage(){
 function scrOrgMembers(){
  const M=DB.members.school;const mx=maxUsers('school');
  return head('সদস্য ও রোল','রোল বদলালে অডিট-লগে লেখা থাকে।',DEMO)+
- `<form class="card" onsubmit="event.preventDefault();actInvite()"><label class="field"><span>নতুন সদস্যের ইমেইল</span><input id="inv-email" type="email" placeholder="name@school.edu.bd" inputmode="email"></label>
+ `<form class="card" onsubmit="event.preventDefault();actInvite()"><label class="field"><span>নতুন সদস্যের ইমেইল</span><input id="inv-email" type="email" placeholder="name@school.example" inputmode="email"></label>
  <label class="field"><span>রোল</span><select id="inv-role">${ROLES.concat(['প্রতিষ্ঠান-অ্যাডমিন']).map(r=>`<option>${r}</option>`).join('')}</select></label><button class="btn pri" data-act="O01">আমন্ত্রণ পাঠান</button></form>
  <div class="sec"><h2>সদস্য (${K('om-count',bn(M.length))})</h2><span class="xs muted">সর্বোচ্চ ${K('om-max',bn(mx))} (প্যাকেজ)</span></div>
  <div class="card list">${M.map((m,i)=>`<div class="item" data-row="member"><span class="ico">${I.user}</span><div class="grow"><div class="ttl">${esc(m.name)}</div><div class="xs muted">${esc(m.email)} · <span data-role>${m.role}</span></div></div><div style="text-align:right">${tag(m.status,m.status==='সক্রিয়'?'ok':'wait')}${i?`<div><button class="link xs" data-act="${m.status==='আমন্ত্রিত'?'O04':'O03'}" style="color:var(--blue);margin-top:4px" onclick="${m.status==='আমন্ত্রিত'?`actResend(${i})`:`actRole(${i})`}">${m.status==='আমন্ত্রিত'?'আবার পাঠান':'রোল বদলান'}</button></div>`:''}</div></div>`).join('')}</div>`;
@@ -733,8 +731,8 @@ function scrOrgBrand(){
  const sv=DB.branding.school;if(!S.bd)S.bd={...sv};const d=S.bd;const wmText=d.wm==='নেই'?'':d.wm==='স্কুলের নাম'?d.name:'লোগো';
  return head('স্কুলের ব্র্যান্ডিং','দলিলে স্কুলের নাম ও লোগো। সংরক্ষণের পরেই দলিলে বসবে।',DEMO)+
  `<div class="paper" style="margin-bottom:14px"><div class="between" style="border-bottom:2px solid ${d.color};padding-bottom:8px"><b class="disp">${esc(d.name)}</b><span style="width:40px;height:40px;border:1.5px dashed #9AA0D8;border-radius:8px;display:grid;place-items:center" class="xs muted">লোগো</span></div>
-  <div style="height:80px;display:grid;place-items:center;color:#D7D9F1;font-family:'Baloo Da 2';font-size:26px;font-weight:800">${esc(wmText)}</div>
-  <div class="between xs muted" style="border-top:1px solid var(--line);padding-top:6px"><span>কন্টেন্ট উন্নয়ন সহযোগী: Schola · www.schola.com</span><span>পৃষ্ঠা ১</span></div></div>
+  <div style="height:80px;display:grid;place-items:center;color:#D7D9F1;font-family:'Noto Sans Bengali','Nirmala UI',system-ui,sans-serif;font-size:26px;font-weight:800">${esc(wmText)}</div>
+  <div class="between xs muted" style="border-top:1px solid var(--line);padding-top:6px"><span>কন্টেন্ট উন্নয়ন সহযোগী: Schola · www.schola.example</span><span>পৃষ্ঠা ১</span></div></div>
  <form class="card" onsubmit="event.preventDefault();actBrandSave()"><label class="field"><span>স্কুলের নাম (দলিলে যেভাবে লেখা হবে)</span><input id="bd-name" value="${esc(d.name)}" oninput="S.bd.name=this.value"></label>
  <label class="field"><span>প্রধান রং</span><input type="color" value="${d.color}" style="padding:4px" onchange="S.bd.color=this.value;render()"></label>
  <span class="small" style="font-weight:600;display:block;margin-bottom:6px">ওয়াটারমার্ক</span><div class="seg">${['হালকা লোগো','স্কুলের নাম','নেই'].map(x=>`<button type="button" data-wm="${x}" aria-pressed="${d.wm===x}" onclick="S.bd.wm='${x}';render()">${x}</button>`).join('')}</div>
@@ -766,7 +764,7 @@ function scrAdmOrg(){
  const id=S.admOrg in DB.orgs?S.admOrg:'school';const o=DB.orgs[id];const e=DB.ent[id]||(DB.ent[id]={tools:{},personas:{}});
  return back('adm-orgs','প্রতিষ্ঠান-তালিকা')+head(esc(o.name),'টুল ও পার্সোনার অনুমতি, সীমা আর ক্রেডিট যোগ। প্রতিটি বদল অডিট-লগে।',DEMO)+
  `<div class="sec" style="margin-top:4px"><h2>টুল</h2></div><div class="card list">${TOOLS.map(t=>{const on=!!e.tools[t[0]];return `<div class="item"><div class="grow ttl">${t[1]}</div><button class="toggle" role="switch" data-act="P03" data-tool="${t[0]}" aria-checked="${on}" aria-label="${t[1]}" onclick="actTool('${id}','${t[0]}')"></button></div>`}).join('')}</div>
- <div class="sec"><h2>পার্সোনা</h2><span class="xs muted">উদয়ন প্রস্তুতি 2027</span></div><div class="card list">${DB.personas.map(p=>{const on=!!e.personas[p.key];const ok=p.status==='approved';return `<div class="item"><div class="grow"><div class="ttl" style="font-size:14px">${SUBJ_NAME[p.subj]} · বাংলা</div><div class="xs muted">${ok?'অনুমোদিত':'খসড়া'}</div></div><button class="toggle" role="switch" data-act="${ok?'P04':'P05'}" data-persona="${p.subj}" aria-checked="${on&&ok}" style="${ok?'':'opacity:.4'}" aria-label="${SUBJ_NAME[p.subj]}" onclick="actPersona('${id}','${p.key}')"></button></div>`}).join('')}</div>
+ <div class="sec"><h2>পার্সোনা</h2><span class="xs muted">নমুনা প্রস্তুতি 2027</span></div><div class="card list">${DB.personas.map(p=>{const on=!!e.personas[p.key];const ok=p.status==='approved';return `<div class="item"><div class="grow"><div class="ttl" style="font-size:14px">${SUBJ_NAME[p.subj]} · বাংলা</div><div class="xs muted">${ok?'অনুমোদিত':'খসড়া'}</div></div><button class="toggle" role="switch" data-act="${ok?'P04':'P05'}" data-persona="${p.subj}" aria-checked="${on&&ok}" style="${ok?'':'opacity:.4'}" aria-label="${SUBJ_NAME[p.subj]}" onclick="actPersona('${id}','${p.key}')"></button></div>`}).join('')}</div>
  <p class="note" style="margin-top:-4px">খসড়া পার্সোনা অনুমোদনের আগে কোনো প্রতিষ্ঠানে দেওয়া যায় না।</p>
  <form class="card" style="margin-top:12px" onsubmit="event.preventDefault();actAddCredit('${id}')"><b>ক্রেডিট যোগ করুন</b><div class="row" style="margin:6px 0 0"><span class="small muted">এখন ব্যালান্স: <b style="color:var(--ink)">${K('ad-bal',bnc(bal(W(id))))}</b></span></div><div class="grid2" style="margin-top:10px"><label class="field"><span>পরিমাণ</span><input id="add-amt" inputmode="numeric" value="১,০০০"></label><label class="field"><span>উৎস</span><select id="add-src"><option>নগদে কেনা</option><option>স্বাগত/উপহার</option></select></label></div><button class="btn pri" data-act="P02">যোগ করুন</button>
  <p class="xs muted" style="margin:8px 0 0">খাতায় দুটি সারি: প্ল্যাটফর্ম −, প্রতিষ্ঠান + (দ্বৈত-এন্ট্রি)।</p></form>
@@ -798,7 +796,7 @@ function scrAdmTasks(){
  `<div class="sec"><h2>টুল-মডিউল</h2></div><div class="card list">${[['কন্টেন্ট লেখা','AI','wait'],['উত্তর-যাচাই','script','ok'],['ডকুমেন্ট বিল্ড','script','ok'],['ডেলিভারি গেট','script','ok'],['রিভিউ ও অনুমোদন','মানুষ + AI গোছানো',''],['ইমেজ ও থাম্বনেইল','AI','wait']].map(m=>`<div class="item"><div class="grow ttl">${m[0]}</div>${tag(m[1],m[2])}</div>`).join('')}</div><p class="note">একটি বন্ধ থাকলে বাকিগুলো চলে।</p>`;
 }
 function scrAdmCatalog(){
- const T=[['নমুনা মডেল স্কুল','client',0],['NCTB কারিকুলাম','curriculum',1],['উদয়ন প্রস্তুতি 2027','program',2],['বাংলা ভার্সন','version',3],['গণিত','subject',4],['লেকচার ০৩ · টুকরো বনাম বিন্দু','৬ দক্ষতা',5],['ইংরেজি','subject',4]];
+ const T=[['নমুনা মডেল স্কুল','client',0],['NCTB কারিকুলাম','curriculum',1],['নমুনা প্রস্তুতি 2027','program',2],['বাংলা ভার্সন','version',3],['গণিত','subject',4],['লেকচার ০৩ · টুকরো বনাম বিন্দু','৬ দক্ষতা',5],['ইংরেজি','subject',4]];
  return head('বিষয় ও পাঠের ক্যাটালগ','এগুলো মেটাডেটা, ডাটাবেসের মূল কাঠামো নয়।',DEMO)+
  `<div class="card">${T.map(t=>`<div class="row" style="padding:7px 0 7px ${t[2]*14}px;border-bottom:1px solid var(--line)"><span style="width:8px;height:8px;border-radius:2px;background:${t[2]===5?'var(--mag)':'var(--blue)'};flex:none"></span><span style="flex:1;font-weight:${t[2]===5?700:500};font-size:14px">${t[0]}</span><span class="xs muted">${t[1]}</span></div>`).join('')}</div>`;
 }
