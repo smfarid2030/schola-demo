@@ -245,7 +245,7 @@ function renderM5(){
 window.renderM5=renderM5;
 function announce(s){$('#live').textContent='';requestAnimationFrame(()=>$('#live').textContent=s)}
 document.addEventListener('click',e=>{
- const el=e.target.closest('button,a');if(!el||el.disabled)return;if(['members','tools'].includes(el.dataset.page)){const url=AppShell.destination(el.dataset.page);if(url)location.href=url;return}
+ const el=e.target.closest('button,a');if(!el||el.disabled)return;if(['members','tools','usage'].includes(el.dataset.page)){const url=AppShell.destination(el.dataset.page);if(url)location.href=url;return}
  if(el.dataset.panel){if($('#panel').open)$('#panel').close();panel(el.dataset.panel);return}
  if(el.id==='panel-close'){closePanel();return}
  if(el.dataset.page){if(['credits','sources','library'].includes(el.dataset.page)){location.href=AppShell.destination(el.dataset.page);return}if(el.dataset.page==='reviews'){location.href='../review-list.html?scope='+(m8Account==='personal'?'personal':'org_teacher');return}if(el.dataset.page==='wizard'){location.href='../wizard.html?step=1&account='+m8Param;return}if(el.dataset.page==='home'||el.dataset.page==='jobs'){location.href=(el.dataset.page==='home'?'home.html':'jobs.html')+location.search}else{if($('#panel').open)closePanel();announce(C.demoDestination)}return}

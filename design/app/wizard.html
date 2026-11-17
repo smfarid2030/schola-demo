@@ -384,7 +384,7 @@ document.addEventListener('change',e=>{const el=e.target;if(!el.matches('#worksp
 });
 document.addEventListener('input',e=>{if(e.target.id==='preset-name')presetName=e.target.value;if(e.target.id==='extra-notes'){draft.notes=e.target.value;changed()}});
 document.addEventListener('click',async e=>{
- const el=e.target.closest('button,a');if(!el||el.disabled)return;if(['members','tools'].includes(el.dataset.page)){const url=AppShell.destination(el.dataset.page);if(url)requestLeave(url);return}
+ const el=e.target.closest('button,a');if(!el||el.disabled)return;if(['members','tools','usage'].includes(el.dataset.page)){const url=AppShell.destination(el.dataset.page);if(url)requestLeave(url);return}
  if(await extraClick(el))return;
  if(el.id==='wizard-next'){
   if(step===9&&confirmation==='done'){location.href='job.html?step=10&account='+(account==='personal'?'personal':'institution')+'&job='+encodeURIComponent(id);return}if(navPending||samplePending||confirmation==='pending')return;
